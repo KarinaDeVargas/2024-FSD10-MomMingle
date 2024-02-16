@@ -2,6 +2,7 @@
 :root {
     --pastel-pink: #ffb6c1;   /* Light Pink */
     --pastel-purple: #e0bbff; /* Lavender */
+    --pastel--darkpurple:#9d3dec;
     --pastel-blue: #add8e6;   /* Light Blue */
     --pastel-yellow: #f2e356;
     --pastel-green: #98fb98;  /* Pale Green */
@@ -38,7 +39,7 @@
   
   nav ul li a {
     text-decoration: none;
-    color: var(--pastel-purple);
+    color: var(--pastel--darkpurple);
   }
   
   /* Hero section styles */
