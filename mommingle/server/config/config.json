@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "mommingle",
-    "password": "mommingle",
-    "database": "mommingleDB",
-    "host": "database-mommingle.cte2k484o8kc.us-east-1.rds.amazonaws.com",
+    "username": "root",
+    "password": "Root2023",
+    "database": "mommingle_db",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
