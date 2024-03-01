@@ -12,7 +12,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SearchEvent from "./pages/SearchEvent";
 import SingleEvent from "./pages/SingleEvent";
-import "./style.scss";
+import "./style/style_css.css";
 
 const Layout = () => {
   return (

@@ -1,0 +1,260 @@
+/* Pastel Palette */
+:root {
+    --pastel-pink: #ffb6c1;   /* Light Pink */
+    --pastel-purple: #e0bbff; /* Lavender */
+    --pastel--darkpurple:#9d3dec;
+    --pastel-blue: #add8e6;   /* Light Blue */
+    --pastel-yellow: #f2e356;
+    --pastel-green: #98fb98;  /* Pale Green */
+    --pastel-peach: #ffdab9;  /* Peach Puff */
+    --lightGreen: #b9e7e7;
+  }
+
+/* .app */
+.app {
+  display: flex;
+  justify-content: center;
+}
+
+/* .app .container */
+.app .container {
+  width: 1024px;
+}
+
+/* .app .container .link */
+.app .container .link {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* .app .container .auth */
+/* LOGIN & REGISTER */
+.app .container .auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #9d3dec;
+}
+
+/* .app .container .auth h1 */
+.app .container .auth h1 {
+  font-size: 20px;
+  color: teal;
+  margin-bottom: 20px;
+}
+
+/* .app .container .auth form */
+.app .container .auth form {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  background-color: white;
+  width: 200px;
+  gap: 20px;
+}
+
+/* .app .container .auth form input */
+.app .container .auth form input {
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+/* .app .container .auth form button */
+.app .container .auth form button {
+  padding: 10px;
+  border: none;
+  background-color: teal;
+  cursor: pointer;
+  color: white;
+}
+
+/* .app .container .auth form p */
+.app .container .auth form p {
+  font-size: 12px;
+  color: red;
+  text-align: center;
+}
+
+/* .app .container .auth form span */
+.app .container .auth form span {
+  font-size: 12px;
+  text-align: center;
+}
+
+/* .app .container .navbar */
+/* NAVBAR */
+.app .container .navbar .container {
+  padding: 10px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* .app .container .navbar .container .logo img */
+.app .container .navbar .container .logo img {
+  width: 120px;
+}
+
+/* .app .container .navbar .container .links */
+.app .container .navbar .container .links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* .app .container .navbar .container .links h6 */
+.app .container .navbar .container .links h6 {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+/* .app .container .navbar .container .links span */
+.app .container .navbar .container .links span {
+  cursor: pointer;
+}
+
+/* .app .container .navbar .container .links .write */
+.app .container .navbar .container .links .write {
+  background-color: #9d3dec;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+  border: 1px solid white;
+}
+
+/* .app .container footer */
+/* FOOTER */
+.app .container footer {
+  margin-top: 100px;
+  padding: 20px;
+  background-color: #9d3dec;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+/* .app .container .home */
+/* HOME */
+.app .container .home .posts {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 150px;
+}
+
+/* .app .container .home .posts .post */
+.app .container .home .posts .post {
+  display: flex;
+  gap: 100px;
+}
+
+/* .app .container .home .posts .post:nth-child(2n + 1) */
+.app .container .home .posts .post:nth-child(2n + 1) {
+  flex-direction: row-reverse;
+}
+
+/* .app .container .home .posts .post .img */
+.app .container .home .posts .post .img {
+  flex: 2;
+  position: relative;
+}
+
+/* .app .container .home .posts .post .img::after */
+.app .container .home .posts .post .img::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #9d3dec;
+  position: absolute;
+  top: 20px;
+  left: -20px;
+  z-index: -1;
+}
+
+/* .app .container .home .posts .post .img img */
+.app .container .home .posts .post .img img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+/* .app .container .home .posts .post .content */
+.app .container .home .posts .post .content {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* .app .container .home .posts .post .content h1 */
+.app .container .home .posts .post .content h1 {
+  font-size: 48px;
+}
+
+/* .app .container .home .posts .post .content p */
+.app .container .home .posts .post .content p {
+  font-size: 18px;
+}
+
+/* .app .container .home .posts .post .content button */
+.app .container .home .posts .post .content button {
+  width: max-content;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid teal;
+  color: teal;
+}
+
+/* .app .container .home .posts .post .content button:hover */
+.app .container .home .posts .post .content button:hover {
+  border: 1px solid white;
+  background-color: #9d3dec;
+  color: black;
+}
+
+/* .app .container .single */
+/* SINGLE */
+.app .container .single {
+  display: flex;
+  gap: 50px;
+}
+
+/* .app .container .single .content */
+.app .container .single .content {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* .app .container .single .content img */
+.app .container .single .content img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+/* .app .container .single .content .user */
+.app .container .single .content .user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+/* .app .container .single .content .user img */
+.app .container .single .content .user img {
+  width: 50px;
+  height: 50px;
+  border-radius:
+}
