@@ -1,8 +1,4 @@
-import {
-  Outlet,
-  RouterProvider,
-  createBrowserRouter
-} from "react-router-dom";
+import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -40,7 +36,7 @@ const router = createBrowserRouter([
       {
         path: "/searchevent",
         element: <SearchEvent />,
-      },      
+      },
       {
         path: "/createevent",
         element: <CreateEvent />,
@@ -69,14 +65,9 @@ function App() {
 
 export default App;
 
-
-
-
-
-
 // import React, { useState } from 'react';
 // import './styles.css'; // Import the CSS file
-// import 
+// import
 
 // // Header component
 // const Header = () => (
