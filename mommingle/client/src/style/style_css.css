@@ -1,14 +1,14 @@
 /* Pastel Palette */
 :root {
-    --pastel-pink: #ffb6c1;   /* Light Pink */
-    --pastel-purple: #e0bbff; /* Lavender */
-    --pastel--darkpurple:#9d3dec;
-    --pastel-blue: #add8e6;   /* Light Blue */
-    --pastel-yellow: #f2e356;
-    --pastel-green: #98fb98;  /* Pale Green */
-    --pastel-peach: #ffdab9;  /* Peach Puff */
-    --lightGreen: #b9e7e7;
-  }
+  --pastel-pink: #ffb6c1;   /* Light Pink */
+  --pastel-purple: #e0bbff; /* Lavender */
+  --pastel-darkpurple: #9d3dec; /* Corrected variable name */
+  --pastel-blue: #add8e6;   /* Light Blue */
+  --pastel-yellow: #f2e356;
+  --pastel-green: #98fb98;  /* Pale Green */
+  --pastel-peach: #ffdab9;  /* Peach Puff */
+  --lightGreen: #b9e7e7;
+}
 
 /* .app */
 .app {
@@ -18,7 +18,9 @@
 
 /* .app .container */
 .app .container {
-  width: 1024px;
+  width: 100%; /* Adjusted width to fit mobile screens */
+  max-width: 1024px; /* Added max-width to limit container size on larger screens */
+  padding: 0 20px; /* Added padding for better mobile spacing */
 }
 
 /* .app .container .link */
@@ -51,7 +53,9 @@
   flex-direction: column;
   padding: 50px;
   background-color: white;
-  width: 200px;
+  width: 100%; /* Adjusted width to fit mobile screens */
+  max-width: 400px; /* Added max-width to limit form size on larger screens */
+  margin: auto; /* Center the form horizontally */
   gap: 20px;
 }
 
@@ -132,7 +136,7 @@
 /* .app .container footer */
 /* FOOTER */
 .app .container footer {
-  margin-top: 100px;
+  margin-top: 50px; /* Adjusted margin for better spacing on mobile */
   padding: 20px;
   background-color: #f2e356;
   display: flex;
@@ -147,107 +151,25 @@
   height: auto; /* Maintain aspect ratio */
 }
 
-
-/* .app .container .home */
-/* HOME */
-.app .container .home .posts {
-  margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  gap: 150px;
-}
-
-/* .app .container .home .posts .post */
-.app .container .home .posts .post {
-  display: flex;
-  gap: 100px;
-}
-
-/* .app .container .home .posts .post:nth-child(2n + 1) */
-.app .container .home .posts .post:nth-child(2n + 1) {
-  flex-direction: row-reverse;
-}
-
-/* .app .container .home .posts .post .img */
-.app .container .home .posts .post .img {
-  flex: 2;
-  position: relative;
-}
-
-/* .app .container .home .posts .post .img::after */
-.app .container .home .posts .post .img::after {
-  content: "";
-  width: 100%;
-  height: 100%;
-  background-color: #9d3dec;
-  position: absolute;
-  top: 20px;
-  left: -20px;
-  z-index: -1;
-}
-
-/* .app .container .home .posts .post .img img */
-.app .container .home .posts .post .img img {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-}
-
-/* .app .container .home .posts .post .content */
-.app .container .home .posts .post .content {
-  flex: 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-/* .app .container .home .posts .post .content h1 */
-.app .container .home .posts .post .content h1 {
-  font-size: 48px;
-}
-
-/* .app .container .home .posts .post .content p */
-.app .container .home .posts .post .content p {
-  font-size: 18px;
-}
-
-/* .app .container .home .posts .post .content button */
-.app .container .home .posts .post .content button {
-  width: max-content;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  background-color: white;
-  border: 1px solid teal;
-  color: teal;
-}
-
-/* .app .container .home .posts .post .content button:hover */
-.app .container .home .posts .post .content button:hover {
-  border: 1px solid white;
-  background-color: #9d3dec;
-  color: black;
-}
-
 /* .app .container .single */
 /* SINGLE */
 .app .container .single {
   display: flex;
-  gap: 50px;
+  flex-direction: column; /* Changed to column layout for better mobile display */
+  gap: 20px; /* Reduced gap for better spacing on mobile */
 }
 
 /* .app .container .single .content */
 .app .container .single .content {
-  flex: 5;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px; /* Adjusted gap for better spacing on mobile */
 }
 
 /* .app .container .single .content img */
 .app .container .single .content img {
   width: 100%;
-  height: 300px;
+  height: auto; /* Adjusted height to maintain aspect ratio */
   object-fit: cover;
 }
 
@@ -263,5 +185,99 @@
 .app .container .single .content .user img {
   width: 50px;
   height: 50px;
-  border-radius:
+  border-radius: 50%; /* Added border-radius value */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .app .container .home */
+/* HOME */
+.app .container .home .posts {
+margin-top: 50px;
+display: flex;
+flex-direction: column;
+gap: 150px;
+}
+
+/* .app .container .home .posts .post */
+.app .container .home .posts .post {
+display: flex;
+gap: 100px;
+}
+
+/* .app .container .home .posts .post:nth-child(2n + 1) */
+.app .container .home .posts .post:nth-child(2n + 1) {
+flex-direction: row-reverse;
+}
+
+/* .app .container .home .posts .post .img */
+.app .container .home .posts .post .img {
+flex: 2;
+position: relative;
+}
+
+/* .app .container .home .posts .post .img::after */
+.app .container .home .posts .post .img::after {
+content: "";
+width: 100%;
+height: 100%;
+background-color: #9d3dec;
+position: absolute;
+top: 20px;
+left: -20px;
+z-index: -1;
+}
+
+/* .app .container .home .posts .post .img img */
+.app .container .home .posts .post .img img {
+width: 100%;
+max-height: 400px;
+object-fit: cover;
+}
+
+/* .app .container .home .posts .post .content */
+.app .container .home .posts .post .content {
+flex: 3;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+/* .app .container .home .posts .post .content h1 */
+.app .container .home .posts .post .content h1 {
+font-size: 48px;
+}
+
+/* .app .container .home .posts .post .content p */
+.app .container .home .posts .post .content p {
+font-size: 18px;
+}
+
+/* .app .container .home .posts .post .content button */
+.app .container .home .posts .post .content button {
+width: max-content;
+padding: 10px 20px;
+border: none;
+cursor: pointer;
+background-color: white;
+border: 1px solid teal;
+color: teal;
+}
+
+/* .app .container .home .posts .post .content button:hover */
+.app .container .home .posts .post .content button:hover {
+border: 1px solid white;
+background-color: #9d3dec;
+color: black;
+}
+
