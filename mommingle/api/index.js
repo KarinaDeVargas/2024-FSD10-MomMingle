@@ -1,14 +1,15 @@
-import express from "express";
-import authRoutes from "./routes/auth.js";
-import userRoutes from "./routes/users.js";
-import postRoutes from "./routes/posts.js";
 import cookieParser from "cookie-parser";
+import express from "express";
 import multer from "multer";
+import authRoutes from "./routes/auth.js";
+import postRoutes from "./routes/posts.js";
+import userRoutes from "./routes/users.js";
 
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "../client/public/upload");
