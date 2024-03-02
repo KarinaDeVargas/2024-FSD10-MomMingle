@@ -35,7 +35,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #9d3dec;
+  background-color: #f2e356;
 }
 
 /* .app .container .auth h1 */
@@ -134,12 +134,19 @@
 .app .container footer {
   margin-top: 100px;
   padding: 20px;
-  background-color: #9d3dec;
+  background-color: #f2e356;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 12px;
 }
+
+/* .app .container footer img */
+.app .container footer img {
+  width: 80px; /* Set the desired width for the image */
+  height: auto; /* Maintain aspect ratio */
+}
+
 
 /* .app .container .home */
 /* HOME */
