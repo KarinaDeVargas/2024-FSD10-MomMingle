@@ -3,7 +3,7 @@ import { db } from "../db.js";
 
 export const getPosts = (req, res) => {
   const q = req.query.cat
-    ? "SELECT * FROM events WHERE cat=?"
+    ? "SELECT * FROM events WHERE category=?"
     : "SELECT * FROM events";
 
   db.query(q, [req.query.cat], (err, data) => {
