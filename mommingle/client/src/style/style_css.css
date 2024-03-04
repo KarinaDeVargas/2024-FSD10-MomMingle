@@ -1,12 +1,12 @@
 /* Pastel Palette */
 :root {
-  --pastel-pink: #ffb6c1;   /* Light Pink */
+  --pastel-pink: #ffb6c1; /* Light Pink */
   --pastel-purple: #e0bbff; /* Lavender */
   --pastel-darkpurple: #9d3dec; /* Corrected variable name */
-  --pastel-blue: #add8e6;   /* Light Blue */
+  --pastel-blue: #add8e6; /* Light Blue */
   --pastel-yellow: #f2e356;
-  --pastel-green: #98fb98;  /* Pale Green */
-  --pastel-peach: #ffdab9;  /* Peach Puff */
+  --pastel-green: #98fb98; /* Pale Green */
+  --pastel-peach: #ffdab9; /* Peach Puff */
   --lightGreen: #b9e7e7;
 }
 
@@ -188,96 +188,167 @@
   border-radius: 50%; /* Added border-radius value */
 }
 
+/* CreateEvent */
+.add {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
 
+  .content {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
+    input {
+      padding: 10px;
+      border: 1px solid lightgray;
+    }
 
+    .editorContainer {
+      height: 300px;
+      overflow: scroll;
+      border: 1px solid lightgray;
 
+      .editor {
+        height: 100%;
+        border: none;
+      }
+    }
+  }
 
+  .menu {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
+    .item {
+      border: 1px solid lightgray;
+      padding: 10px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #555;
 
+      h1 {
+        font-size: 20px;
+      }
 
+      .file {
+        text-decoration: underline;
+        cursor: pointer;
+      }
 
+      .buttons {
+        display: flex;
+        justify-content: space-between;
 
+        :first-child {
+          cursor: pointer;
+          color: teal;
+          background-color: white;
+          border: 1px solid teal;
+          padding: 3px 5px;
+        }
+        :last-child {
+          cursor: pointer;
+          color: white;
+          background-color: teal;
+          border: 1px solid teal;
+          padding: 3px 5px;
+        }
+      }
 
+      .cat {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        color: teal;
+      }
+    }
+  }
+}
 
 /* .app .container .home */
 /* HOME */
 .app .container .home .posts {
-margin-top: 50px;
-display: flex;
-flex-direction: column;
-gap: 150px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 150px;
 }
 
 /* .app .container .home .posts .post */
 .app .container .home .posts .post {
-display: flex;
-gap: 100px;
+  display: flex;
+  gap: 100px;
 }
 
 /* .app .container .home .posts .post:nth-child(2n + 1) */
 .app .container .home .posts .post:nth-child(2n + 1) {
-flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 /* .app .container .home .posts .post .img */
 .app .container .home .posts .post .img {
-flex: 2;
-position: relative;
+  flex: 2;
+  position: relative;
 }
 
 /* .app .container .home .posts .post .img::after */
 .app .container .home .posts .post .img::after {
-content: "";
-width: 100%;
-height: 100%;
-background-color: #9d3dec;
-position: absolute;
-top: 20px;
-left: -20px;
-z-index: -1;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #9d3dec;
+  position: absolute;
+  top: 20px;
+  left: -20px;
+  z-index: -1;
 }
 
 /* .app .container .home .posts .post .img img */
 .app .container .home .posts .post .img img {
-width: 100%;
-max-height: 400px;
-object-fit: cover;
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
 }
 
 /* .app .container .home .posts .post .content */
 .app .container .home .posts .post .content {
-flex: 3;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* .app .container .home .posts .post .content h1 */
 .app .container .home .posts .post .content h1 {
-font-size: 48px;
+  font-size: 48px;
 }
 
 /* .app .container .home .posts .post .content p */
 .app .container .home .posts .post .content p {
-font-size: 18px;
+  font-size: 18px;
 }
 
 /* .app .container .home .posts .post .content button */
 .app .container .home .posts .post .content button {
-width: max-content;
-padding: 10px 20px;
-border: none;
-cursor: pointer;
-background-color: white;
-border: 1px solid teal;
-color: teal;
+  width: max-content;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid teal;
+  color: teal;
 }
 
 /* .app .container .home .posts .post .content button:hover */
 .app .container .home .posts .post .content button:hover {
-border: 1px solid white;
-background-color: #9d3dec;
-color: black;
+  border: 1px solid white;
+  background-color: #9d3dec;
+  color: black;
 }
-
