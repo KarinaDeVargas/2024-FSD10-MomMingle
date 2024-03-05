@@ -3,12 +3,11 @@ import DOMPurify from "dompurify";
 import moment from "moment";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Menu from "../components/Menu";
 import { AuthContext } from "../context/authContext";
 import Delete from "../images/delete.png";
 import Edit from "../images/edit.png";
 
-const Single = () => {
+const SingleEvent = () => {
   const [post, setPost] = useState({});
 
   const location = useLocation();
@@ -47,18 +46,17 @@ const Single = () => {
   return (
     <div className="single">
       <div className="content">
-        <img src={`../upload/${post?.img}`} alt="" />
+        {/*<img src={`../upload/${post?.img}`} alt="" />*/}
         <div className="user">
-          {post.userImg && <img src={post.userImg} alt="" />}
           <div className="info">
-            <span>{post.username}</span>
-            <p>Posted {moment(post.date).fromNow()}</p>
+            <span>Host: {post.username}</span>
+            <p>Posted {moment(post.created_at).fromNow()}</p>
           </div>
           {currentUser.username === post.username && (
             <div className="edit">
-              <Link to={`/write?edit=2`} state={post}>
-                <img src={Edit} alt="" />
-              </Link>
+              {/*<Link to={`/write?edit=2`} state={post}>*/}
+              <img src={Edit} alt="" />
+              {/*</Link>*/}
               <img onClick={handleDelete} src={Delete} alt="" />
             </div>
           )}
@@ -66,13 +64,17 @@ const Single = () => {
         <h1>{post.title}</h1>
         <p
           dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(post.desc),
+            __html: DOMPurify.sanitize(post.description),
           }}
         ></p>
+        <p>Event Date: {post.event_date}</p>
+        <p>Location: {post.location}</p>
+        <p>Category: {post.category}</p>
+        <p>Activities: {post.activities}</p>
+        <p>Age Range: {post.age_range}</p>
       </div>
-      <Menu cat={post.cat} />
     </div>
   );
 };
 
-export default Single;
+export default SingleEvent;
