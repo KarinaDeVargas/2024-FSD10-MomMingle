@@ -8,15 +8,21 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import SearchEvent from "./pages/SearchEvent";
 import SingleEvent from "./pages/SingleEvent";
+import Events from "./pages/Events";
 import "./style/style_css.css";
+import "./style/tailwind.css";
 
 const Layout = () => {
   return (
-    <>
+    <div className="flex flex-col">
       <Navbar />
-      <Outlet />
+      <div className="app">
+        <div className="container">
+          <Outlet />
+        </div>
+      </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
@@ -28,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/events",
+        element: <Events />,
       },
       {
         path: "/post/:id",
@@ -43,22 +53,12 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
 ]);
 
 function App() {
   return (
-    <div className="app">
-      <div className="container">
-        <RouterProvider router={router} />
-      </div>
+    <div>
+      <RouterProvider router={router} />
     </div>
   );
 }

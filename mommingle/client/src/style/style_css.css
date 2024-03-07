@@ -1,26 +1,22 @@
-/* Pastel Palette */
-:root {
-  --pastel-pink: #ffb6c1; /* Light Pink */
-  --pastel-purple: #e0bbff; /* Lavender */
-  --pastel-darkpurple: #9d3dec; /* Corrected variable name */
-  --pastel-blue: #add8e6; /* Light Blue */
-  --pastel-yellow: #f2e356;
-  --pastel-green: #98fb98; /* Pale Green */
-  --pastel-peach: #ffdab9; /* Peach Puff */
-  --lightGreen: #b9e7e7;
-}
-
 /* .app */
 .app {
   display: flex;
   justify-content: center;
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+}
+
+/* .app .navbar */
+.app .navbar {
+  font-family: 'Lato', sans-serif; 
+  font-weight: 400;
 }
 
 /* .app .container */
 .app .container {
-  width: 100%; /* Adjusted width to fit mobile screens */
-  max-width: 1024px; /* Added max-width to limit container size on larger screens */
+  width: 100vw; /* Adjusted width to fit mobile screens */
   padding: 0 20px; /* Added padding for better mobile spacing */
+  margin-top: 25px;
 }
 
 /* .app .container .link */
@@ -138,7 +134,6 @@
 .app .container footer {
   margin-top: 50px; /* Adjusted margin for better spacing on mobile */
   padding: 20px;
-  background-color: #f2e356;
   display: flex;
   align-items: center;
   justify-content: space-between;
