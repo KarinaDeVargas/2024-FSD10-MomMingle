@@ -29,7 +29,7 @@ const SingleEvent = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(`/posts/${postId}`);
-      navigate("/");
+      navigate("/events");
     } catch (err) {
       console.log(err);
     }
@@ -41,36 +41,49 @@ const SingleEvent = () => {
   };
 
   return (
-      <div className="container mx-auto p-8">
-        <div className="bg-white shadow-lg rounded-lg p-8">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center">
-              <span className="text-sm font-bold mr-2">Host: {post.username}</span>
-              <p className="text-xs">Posted {moment(post.created_at).fromNow()}</p>
-            </div>
-            {currentUser.username === post.username && (
-              <div className="flex items-center">
-                <Link to={`/write?edit=${postId}`} className="mr-4">
-                  <img src={EditIcon} alt="Edit" className="w-6 h-6 cursor-pointer" />
-                </Link>
-                <img onClick={handleDelete} src={DeleteIcon} alt="Delete" className="w-6 h-6 cursor-pointer" />
-              </div>
-            )}
+    <div className="container mx-auto p-8">
+      <div className="bg-white shadow-lg rounded-lg p-8">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center">
+            <span className="text-sm font-bold mr-2">
+              Host: {post.username}
+            </span>
+            <p className="text-xs">
+              Posted {moment(post.created_at).fromNow()}
+            </p>
           </div>
-          <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-          <p
-            className="text-base mb-4"
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(post.description),
-            }}
-          ></p>
-          <p className="text-sm mb-2">Event Date: {post.event_date}</p>
-          <p className="text-sm mb-2">Location: {post.location}</p>
-          <p className="text-sm mb-2">Category: {post.category}</p>
-          <p className="text-sm mb-2">Activities: {post.activities}</p>
-          <p className="text-sm mb-2">Age Range: {post.age_range}</p>
+          {currentUser.username === post.username && (
+            <div className="flex items-center">
+              <Link to={`/createevent?edit=${postId}`} className="mr-4">
+                <img
+                  src={EditIcon}
+                  alt="Edit"
+                  className="w-6 h-6 cursor-pointer"
+                />
+              </Link>
+              <img
+                onClick={handleDelete}
+                src={DeleteIcon}
+                alt="Delete"
+                className="w-6 h-6 cursor-pointer"
+              />
+            </div>
+          )}
         </div>
+        <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+        <p
+          className="text-base mb-4"
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(post.description),
+          }}
+        ></p>
+        <p className="text-sm mb-2">Event Date: {post.event_date}</p>
+        <p className="text-sm mb-2">Location: {post.location}</p>
+        <p className="text-sm mb-2">Category: {post.category}</p>
+        <p className="text-sm mb-2">Activities: {post.activities}</p>
+        <p className="text-sm mb-2">Age Range: {post.age_range}</p>
       </div>
+    </div>
   );
 };
 
