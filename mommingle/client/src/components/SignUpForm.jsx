@@ -68,7 +68,7 @@ const SignUpForm = ({setShowSignUpForm}) => {
         </div>
         <button
           type="submit"
-          className="w-full py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+          className="w-full py-2 bg-pastel-darker-blue text-white font-semibold rounded hover:bg-blue-500"
         >
           Sign Up
         </button>
@@ -76,7 +76,7 @@ const SignUpForm = ({setShowSignUpForm}) => {
         <div className="text-center mt-4">
           <p className="text-gray-700">Already have an account?</p>
           <button
-            className="text-blue-500 hover:underline inline ml-1"
+            className="text-pastel-darker-blue hover:underline inline ml-1"
             onClick={() => setShowSignUpForm(false)}
           >
             Log In

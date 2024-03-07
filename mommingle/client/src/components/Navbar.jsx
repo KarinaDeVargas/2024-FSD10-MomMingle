@@ -38,35 +38,19 @@ const Navbar = () => {
           <div className="logo" onClick={handleLogoClick}>
             <img src={Logo} alt="Logo" className="h-8 w-auto cursor-pointer" />
           </div>
-          <div className="md:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 cursor-pointer block"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </div>
         </div>
         {currentUser && (
           <div className="flex items-center">
             <ul className="flex space-x-4 mr-12">
               <li>
-                <Link to="/events" className="text-blue-400 hover:text-pastel-blue">
+                <Link to="/events" className="text-pastel-salmon hover:text-pastel-pink">
                   Events
                 </Link>
               </li>
               <li>
                 <Link
                   to="/createevent"
-                  className="text-blue-400 hover:text-pastel-blue"
+                  className="text-pastel-salmon hover:text-pastel-pink"
                 >
                   Create Event
                 </Link>
@@ -75,9 +59,9 @@ const Navbar = () => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={handleLogout}
-                className="py-2 px-4 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+                className="py-2 px-4 bg-pastel-darker-blue text-white font-semibold rounded hover:bg-blue-500"
               >
-                Logout
+                Log out
               </button>
             </div>
           </div>
