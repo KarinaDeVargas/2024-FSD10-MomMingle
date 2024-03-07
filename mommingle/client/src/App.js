@@ -9,6 +9,7 @@ import Register from "./pages/Register";
 import SearchEvent from "./pages/SearchEvent";
 import SingleEvent from "./pages/SingleEvent";
 import Events from "./pages/Events";
+import Messages from "./pages/Messages";
 import "./style/style_css.css";
 import "./style/tailwind.css";
 
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/messages",
+        element: <Messages />,
       },
       {
         path: "/events",

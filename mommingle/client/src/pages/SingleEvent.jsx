@@ -35,11 +35,6 @@ const SingleEvent = () => {
     }
   };
 
-  const getText = (html) => {
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent;
-  };
-
   return (
       <div className="container mx-auto p-8">
         <div className="bg-white shadow-lg rounded-lg p-8">

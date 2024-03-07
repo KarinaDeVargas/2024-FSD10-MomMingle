@@ -42,6 +42,11 @@ const Navbar = () => {
         {currentUser && (
           <div className="flex items-center">
             <ul className="flex space-x-4 mr-12">
+            <li>
+                <Link to="/messages" className="text-pastel-salmon hover:text-pastel-pink">
+                  Messages
+                </Link>
+              </li>
               <li>
                 <Link to="/events" className="text-pastel-salmon hover:text-pastel-pink">
                   Events
