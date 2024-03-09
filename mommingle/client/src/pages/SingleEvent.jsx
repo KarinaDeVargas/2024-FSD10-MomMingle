@@ -49,7 +49,11 @@ const SingleEvent = () => {
           </div>
           {currentUser.username === post.username && (
             <div className="flex items-center">
-              <Link to={`/createevent?edit=${postId}`} className="mr-4">
+              <Link
+                to={`/createevent?edit=${postId}`}
+                state={post}
+                className="mr-4"
+              >
                 <img
                   src={EditIcon}
                   alt="Edit"

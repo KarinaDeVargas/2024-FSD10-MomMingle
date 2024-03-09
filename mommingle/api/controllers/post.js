@@ -2,11 +2,11 @@ import jwt from "jsonwebtoken";
 import { db } from "../db.js";
 
 export const getPosts = (req, res) => {
-  const q = req.query.cat
+  const q = req.query.category
     ? "SELECT * FROM events WHERE category=?"
     : "SELECT e.*, u.username FROM events e JOIN users u ON e.user_id = u.user_id";
 
-  db.query(q, [req.query.cat], (err, data) => {
+  db.query(q, [req.query.category], (err, data) => {
     if (err) return res.status(500).send(err);
 
     return res.status(200).json(data);
@@ -32,13 +32,17 @@ export const addPost = (req, res) => {
     if (err) return res.status(403).json("Token is not valid!");
 
     const q =
-      "INSERT INTO events(`title`, `description`, `img`, `category`, `created_at`, `user_id`) VALUES (?)";
+      "INSERT INTO events(`title`, `description`, `img`, `category`, `event_date`, `location`, `activities`, `age_range`, `created_at`, `user_id`) VALUES (?)";
 
     const values = [
       req.body.title,
       req.body.description,
       req.body.img,
       req.body.category,
+      req.body.event_date,
+      req.body.location,
+      req.body.activities,
+      req.body.age_range,
       req.body.created_at,
       userInfo.user_id,
     ];
@@ -77,13 +81,17 @@ export const updatePost = (req, res) => {
 
     const postId = req.params.id;
     const q =
-      "UPDATE events SET `title`=?, `description`=?, `img`=?, `category`=?, `created_at`=?  WHERE `event_id` = ? AND `user_id` = ?";
+      "UPDATE events SET `title`=?, `description`=?, `img`=?, `category`=?, `event_date`=?, `location`=?, `activities`=?, `age_range`=?, `created_at`=?  WHERE `event_id` = ? AND `user_id` = ?";
 
     const values = [
       req.body.title,
       req.body.description,
       req.body.img,
       req.body.category,
+      req.body.event_date,
+      req.body.location,
+      req.body.activities,
+      req.body.age_range,
     ];
 
     db.query(q, [...values, postId, userInfo.user_id], (err, data) => {

@@ -7,14 +7,10 @@ import moment from "moment";
 
 const CreateEvent = () => {
   const state = useLocation().state;
-  const [value, setValue] = useState(state?.description || "");
-  const [title, setTitle] = useState(state?.title || "");
+  const [value, setValue] = useState(state?.title || "");
+  const [title, setTitle] = useState(state?.description || "");
   const [file, setFile] = useState(null);
   const [category, setCategory] = useState(state?.category || "");
-  const [eventDate, setEventDate] = useState(state?.event_date || "");
-  const [location, setLocation] = useState(state?.location || "");
-  const [activities, setActivities] = useState(state?.activities || "");
-  const [ageRange, setAgeRange] = useState(state?.age_range || "");
 
   const navigate = useNavigate();
 
@@ -39,20 +35,12 @@ const CreateEvent = () => {
             title,
             description: value,
             category,
-            event_date: eventDate,
-            location,
-            activities,
-            age_range: ageRange,
             img: file ? imgUrl : "",
           })
         : await axios.post(`/posts/`, {
             title,
             description: value,
             category,
-            event_date: eventDate,
-            location,
-            activities,
-            age_range: ageRange,
             img: file ? imgUrl : "",
             created_at: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
           });
@@ -80,50 +68,16 @@ const CreateEvent = () => {
             onChange={setValue}
           />
         </div>
-
-        <input
-          type="text"
-          value={eventDate}
-          placeholder="Event Date"
-          onChange={(e) => setEventDate(e.target.value)}
-        />
-
-        <input
-          type="text"
-          value={location}
-          placeholder="Location"
-          onChange={(e) => setLocation(e.target.value)}
-        />
-
-        <input
-          type="text"
-          value={activities}
-          placeholder="Activities"
-          onChange={(e) => setActivities(e.target.value)}
-        />
-
-        <input
-          type="text"
-          value={ageRange}
-          placeholder="Age Range"
-          onChange={(e) => setAgeRange(e.target.value)}
-        />
-
-        <div className="category">
-          <h1>Category</h1>
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="social">Social</option>
-            <option value="culture">Culture</option>
-            <option value="fitness">Fitness</option>
-            <option value="parenting">Parenting</option>
-            <option value="playdate">Playdate</option>
-          </select>
-        </div>
-
-        <div className="publish">
+      </div>
+      <div className="menu">
+        <div className="item">
+          <h1>Publish</h1>
+          <span>
+            <b>Status: </b> Draft
+          </span>
+          <span>
+            <b>Visibility: </b> Public
+          </span>
           <input
             style={{ display: "none" }}
             type="file"
@@ -135,8 +89,22 @@ const CreateEvent = () => {
             Upload Image
           </label>
           <div className="buttons">
+            <button>Save as a draft</button>
             <button onClick={handleClick}>Publish</button>
           </div>
+        </div>
+        <div className="item">
+          <h1>Category</h1>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="social">Social</option>
+            <option value="culture">Culture</option>
+            <option value="fitness">Fitness</option>
+            <option value="parenting">Parenting</option>
+            <option value="playdate">Playdate</option>
+          </select>
         </div>
       </div>
     </div>
