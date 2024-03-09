@@ -15,12 +15,18 @@ const SearchEvent = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`/posts${cat}`, {
-        params: {
-          category: selectedCategory,
-          date: selectedDate
-        }
-      });
+      let url = `/events`;
+      let params = {};
+
+      if (selectedCategory) {
+        params.category = selectedCategory;
+      }
+
+      if (selectedDate) {
+        params.date = selectedDate;
+      }
+
+      const res = await axios.get(url, { params });
       setPosts(res.data);
     } catch (err) {
       console.log(err);
@@ -47,9 +53,14 @@ const SearchEvent = () => {
           className="border rounded px-4 py-2 ml-4"
         >
           <option value="">All Categories</option>
-          <option value="Category1">Category1</option>
-          <option value="Category2">Category2</option>
-          {/* Add more categories as needed */}
+          <option value="Playdate">Playdate</option>
+          <option value="Social">Social</option>
+          <option value="Fitness">Fitness</option>
+          <option value="Crafts">Crafts</option>
+          <option value="Parenting">Parenting</option>
+          <option value="Cooking">Cooking</option>
+          <option value="Outdoor">Outdoor</option>
+          <option value="Literature">Literature</option>
         </select>
         <input
           type="date"
@@ -68,7 +79,7 @@ const SearchEvent = () => {
         {posts.map((post) => (
           <div
             className="bg-white rounded-lg shadow-md overflow-hidden"
-            key={post.id}
+            key={post.event_id}
           >
             <div className="p-4">
               <Link

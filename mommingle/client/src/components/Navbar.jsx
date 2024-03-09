@@ -60,6 +60,14 @@ const Navbar = () => {
                   Create Event
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/searchevent"
+                  className="text-pastel-salmon hover:text-pastel-pink"
+                >
+                  Search Event
+                </Link>
+              </li>
             </ul>
             <div className="flex items-center space-x-4">
               <button
