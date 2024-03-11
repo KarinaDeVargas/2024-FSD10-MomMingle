@@ -21,6 +21,11 @@ const Events = () => {
     fetchData();
   }, [cat]);
 
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
+  };
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {posts.map((post) => (
@@ -28,7 +33,11 @@ const Events = () => {
           className="bg-white rounded-lg shadow-md overflow-hidden"
           key={post.id}
         >
-          {/* <img className="w-full h-48 object-cover object-center" src={`../upload/${post.img}`} alt={post.title} /> */}
+          <img
+            className="w-full h-48 object-cover object-center"
+            src={`../upload/${post.img}`}
+            alt={post.title}
+          />
           <div className="p-4">
             <Link
               to={`/post/${post.event_id}`}
@@ -36,7 +45,7 @@ const Events = () => {
             >
               {post.title}
             </Link>
-            <p className="text-gray-600">{post.description}</p>
+            <p className="text-gray-600">{getText(post.description)}</p>
             <p className="text-gray-500">Hosted By: {post.username}</p>
             <Link
               to={`/post/${post.event_id}`}

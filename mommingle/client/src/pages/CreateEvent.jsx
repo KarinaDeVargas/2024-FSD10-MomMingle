@@ -18,6 +18,8 @@ const CreateEvent = () => {
 
   const navigate = useNavigate();
 
+  const postId = new URLSearchParams(useLocation().search).get("edit");
+
   const upload = async () => {
     try {
       const formData = new FormData();
@@ -34,28 +36,16 @@ const CreateEvent = () => {
     const imgUrl = await upload();
 
     try {
-      state
-        ? await axios.put(`/posts/${state.id}`, {
-            title,
-            description: value,
-            category,
-            event_date: eventDate,
-            location,
-            activities,
-            age_range: ageRange,
-            img: file ? imgUrl : "",
-          })
-        : await axios.post(`/posts/`, {
-            title,
-            description: value,
-            category,
-            event_date: eventDate,
-            location,
-            activities,
-            age_range: ageRange,
-            img: file ? imgUrl : "",
-            created_at: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
-          });
+      await axios.put(`/posts/${postId}`, {
+        title,
+        description: value,
+        category,
+        event_date: eventDate,
+        location,
+        activities,
+        age_range: ageRange,
+        img: file ? imgUrl : "",
+      });
       navigate("/events");
     } catch (err) {
       console.log(err);

@@ -80,8 +80,13 @@ export const updatePost = (req, res) => {
     if (err) return res.status(403).json("Token is not valid!");
 
     const postId = req.params.id;
+
+    if (!postId) {
+      return res.status(400).json("Post ID is missing in the request.");
+    }
+
     const q =
-      "UPDATE events SET `title`=?, `description`=?, `img`=?, `category`=?, `event_date`=?, `location`=?, `activities`=?, `age_range`=?, `created_at`=?  WHERE `event_id` = ? AND `user_id` = ?";
+      "UPDATE events SET `title`=?, `description`=?, `img`=?, `category`=?, `event_date`=?, `location`=?, `activities`=?, `age_range`=? WHERE `event_id` = ? AND `user_id` = ?";
 
     const values = [
       req.body.title,
@@ -95,7 +100,10 @@ export const updatePost = (req, res) => {
     ];
 
     db.query(q, [...values, postId, userInfo.user_id], (err, data) => {
-      if (err) return res.status(500).json(err);
+      if (err) {
+        console.error("Error updating post:", err);
+        return res.status(500).json(err);
+      }
       return res.json("Post has been updated.");
     });
   });

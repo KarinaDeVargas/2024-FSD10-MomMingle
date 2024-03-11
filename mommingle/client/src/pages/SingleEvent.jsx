@@ -70,6 +70,11 @@ const SingleEvent = () => {
           )}
         </div>
         <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+        <img
+          className="w-full h-48 object-cover object-center"
+          src={`../upload/${post.img}`}
+          alt={post.title}
+        />
         <p
           className="text-base mb-4"
           dangerouslySetInnerHTML={{
