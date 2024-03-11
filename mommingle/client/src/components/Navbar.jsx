@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import Logo from "../images/logo-no-background.png";
@@ -6,9 +6,12 @@ import Logo from "../images/logo-no-background.png";
 const Navbar = () => {
   const { currentUser, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (currentUser) {
+      // Assuming currentUser contains user data including the role
+      setIsAdmin(currentUser.role === "admin");
       navigate("/events");
     }
   }, [currentUser, navigate]);
@@ -42,13 +45,19 @@ const Navbar = () => {
         {currentUser && (
           <div className="flex items-center">
             <ul className="flex space-x-4 mr-12">
-            <li>
-                <Link to="/messages" className="text-pastel-salmon hover:text-pastel-pink">
+              <li>
+                <Link
+                  to="/messages"
+                  className="text-pastel-salmon hover:text-pastel-pink"
+                >
                   Messages
                 </Link>
               </li>
               <li>
-                <Link to="/events" className="text-pastel-salmon hover:text-pastel-pink">
+                <Link
+                  to="/events"
+                  className="text-pastel-salmon hover:text-pastel-pink"
+                >
                   Events
                 </Link>
               </li>
@@ -68,6 +77,16 @@ const Navbar = () => {
                   Search Event
                 </Link>
               </li>
+              {isAdmin && (
+                <li>
+                  <Link
+                    to="/admin"
+                    className="text-pastel-salmon hover:text-pastel-pink"
+                  >
+                    Admin
+                  </Link>
+                </li>
+              )}
             </ul>
             <div className="flex items-center space-x-4">
               <button
