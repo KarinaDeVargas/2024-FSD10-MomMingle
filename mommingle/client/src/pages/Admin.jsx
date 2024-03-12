@@ -1,104 +1,141 @@
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 const Admin = () => {
-  const [posts, setPosts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
-  const cat = useLocation().search;
+  const { currentUser } = useContext(AuthContext);
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState("");
+  const [deleteUserId, setDeleteUserId] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false); // State to track admin status
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchData();
-  }, [cat, selectedCategory, selectedDate]);
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:8800/api/users");
+        setUsers(response.data);
+      } catch (error) {
+        handleFetchError(error);
+      }
+    };
 
-  const fetchData = async () => {
+    const checkAdminStatus = async () => {
+      try {
+        // Assuming currentUser contains user data including the role
+        setIsAdmin(currentUser && currentUser.role === "admin");
+      } catch (error) {
+        console.error("Error checking admin status:", error);
+        setIsAdmin(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+    checkAdminStatus();
+  }, [currentUser]); // useEffect dependency
+
+  const handleFetchError = (error) => {
+    console.error("Error fetching users:", error);
+    setError("Error fetching users. Please try again.");
+  };
+
+  const deleteUser = async (userId) => {
     try {
-      let url = `/events`;
-      let params = {};
-
-      if (selectedCategory) {
-        params.category = selectedCategory;
-      }
-
-      if (selectedDate) {
-        params.date = selectedDate;
-      }
-
-      const res = await axios.get(url, { params });
-      setPosts(res.data);
-    } catch (err) {
-      console.log(err);
+      await axios.delete(`http://localhost:8800/api/users/${userId}`);
+      setUsers(users.filter((user) => user.user_id !== userId));
+      window.alert("User deleted successfully!");
+    } catch (error) {
+      handleDeleteError(error);
+    } finally {
+      setDeleteUserId(null);
     }
   };
 
-  const handleSearch = () => {
-    fetchData();
+  const handleDeleteError = (error) => {
+    console.error("Error deleting user:", error);
+    setError("Error deleting user. Please try again.");
+  };
+
+  const handleDeleteConfirmation = (userId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this user?"
+    );
+    if (confirmed) {
+      setDeleteUserId(userId);
+      deleteUser(userId);
+    }
   };
 
   return (
-    <div className="container mx-auto p-8">
-      <div className="flex justify-between items-center mb-4">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search events"
-          className="border rounded px-4 py-2 w-1/3"
-        />
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="border rounded px-4 py-2 ml-4"
-        >
-          <option value="">All Categories</option>
-          <option value="Playdate">Playdate</option>
-          <option value="Social">Social</option>
-          <option value="Fitness">Fitness</option>
-          <option value="Crafts">Crafts</option>
-          <option value="Parenting">Parenting</option>
-          <option value="Cooking">Cooking</option>
-          <option value="Outdoor">Outdoor</option>
-          <option value="Literature">Literature</option>
-        </select>
-        <input
-          type="date"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          className="border rounded px-4 py-2 ml-4"
-        />
-        <button
-          onClick={handleSearch}
-          className="bg-blue-500 text-white px-4 py-2 rounded ml-4"
-        >
-          Search
-        </button>
-      </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {posts.map((post) => (
-          <div
-            className="bg-white rounded-lg shadow-md overflow-hidden"
-            key={post.event_id}
-          >
-            <div className="p-4">
-              <Link
-                to={`/post/${post.event_id}`}
-                className="block mb-2 text-lg font-semibold text-blue-600 hover:text-blue-700"
-              >
-                {post.title}
-              </Link>
-              <p className="text-gray-600">{post.description}</p>
-              <p className="text-gray-500">Hosted By: {post.username}</p>
-              <Link
-                to={`/post/${post.event_id}`}
-                className="text-blue-600 hover:underline"
-              >
-                Read More
-              </Link>
-            </div>
-          </div>
-        ))}
+    <div className="usersPanel">
+      <div className="usersContainer">
+        <div className="usersTable">
+          {loading && <p>Loading...</p>}
+          {!loading && (
+            <>
+              {!isAdmin && (
+                <p>You do not have permission to access this page.</p>
+              )}
+              {isAdmin && (
+                <>
+                  {error && (
+                    <p
+                      style={{
+                        fontSize: "25px",
+                        color: "red",
+                        textAlign: "center",
+                      }}
+                    >
+                      {error}
+                    </p>
+                  )}
+                  {!error && (
+                    <>
+                      <h1 className="usersHeading">Manage Users Account</h1>
+                      <table className="table">
+                        <thead>
+                          <tr>
+                            <th>User ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {users.map((user) => (
+                            <tr key={user.user_id}>
+                              <td>{user.user_id}</td>
+                              <td>{user.username}</td>
+                              <td>{user.email}</td>
+                              <td>{user.role}</td>
+                              <td>
+                                <Link to={`/editUser/${user.user_id}`}>
+                                  <button className="table_btn">Edit</button>
+                                </Link>
+                                <button
+                                  className="table_btn"
+                                  onClick={() =>
+                                    handleDeleteConfirmation(user.user_id)
+                                  }
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </>
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

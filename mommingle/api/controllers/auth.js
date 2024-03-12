@@ -25,31 +25,39 @@ export const register = (req, res) => {
 };
 
 export const login = (req, res) => {
-  //CHECK USER
-  const q = "SELECT * FROM users WHERE username = ?";
+  return new Promise((resolve, reject) => {
+    //CHECK USER
+    const q = "SELECT * FROM users WHERE username = ?";
 
-  db.query(q, [req.body.username], (err, data) => {
-    if (err) return res.status(500).json(err);
-    if (data.length === 0) return res.status(404).json("User not found!");
+    db.query(q, [req.body.username], (err, data) => {
+      if (err) {
+        reject(err);
+      } else if (data.length === 0) {
+        reject("User not found!");
+      } else {
+        //Check password
+        const isPasswordCorrect = bcrypt.compareSync(
+          req.body.password,
+          data[0].password
+        );
 
-    //Check password
-    const isPasswordCorrect = bcrypt.compareSync(
-      req.body.password,
-      data[0].password
-    );
+        if (!isPasswordCorrect) {
+          reject("Wrong username or password!");
+        } else {
+          const token = jwt.sign({ user_id: data[0].user_id }, "jwtkey");
+          const { password, ...other } = data[0];
 
-    if (!isPasswordCorrect)
-      return res.status(400).json("Wrong username or password!");
-
-    const token = jwt.sign({ user_id: data[0].user_id }, "jwtkey");
-    const { password, ...other } = data[0];
-
-    res
-      .cookie("access_token", token, {
-        httpOnly: true,
-      })
-      .status(200)
-      .json(other);
+          console.log("Login response data:", other); // Log the response data
+          res
+            .cookie("access_token", token, {
+              httpOnly: true,
+            })
+            .status(200)
+            .json(other);
+          resolve(other); // Resolve with the user data (without password)
+        }
+      }
+    });
   });
 };
 

@@ -244,6 +244,61 @@
   color: red;
 }
 
+/* ********ADMIN PAGE********** */
+.usersPanel {
+  padding: 50px;
+}
+
+.usersContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.usersTable {
+  overflow-x: auto;
+}
+
+.usersTable h1 {
+  margin-bottom: 30px;
+}
+
+.usersHeading {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.table_btn {
+  padding: 10px 20px;
+  background-color: #53aeff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.table_btn:hover {
+  background-color: #3b82f6;
+}
+
 /* .app .container .home */
 /* HOME */
 .app .container .home .posts {

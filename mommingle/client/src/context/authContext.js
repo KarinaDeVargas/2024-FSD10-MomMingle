@@ -9,8 +9,13 @@ export const AuthContextProvider = ({ children }) => {
   );
 
   const login = async (inputs) => {
-    const res = await axios.post("/auth/login", inputs);
-    setCurrentUser(res.data);
+    try {
+      const res = await axios.post("/auth/login", inputs);
+      console.log("Login response2:", res.data); // Log the response data
+      setCurrentUser(res.data);
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   const logout = async (inputs) => {

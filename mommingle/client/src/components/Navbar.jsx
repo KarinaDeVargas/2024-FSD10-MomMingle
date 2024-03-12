@@ -12,7 +12,6 @@ const Navbar = () => {
     if (currentUser) {
       // Assuming currentUser contains user data including the role
       setIsAdmin(currentUser.role === "admin");
-      navigate("/events");
     }
   }, [currentUser, navigate]);
 

@@ -20,10 +20,15 @@ const LoginForm = ({ setShowSignUpForm }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(inputs);
-      navigate("/events");
+      const response = await login(inputs);
+      console.log("Login response:", response); // Log the entire response
+      if (response && response.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/events");
+      }
     } catch (err) {
-      setError(err.response.data);
+      setError(err.response ? err.response.data : err);
     }
   };
 
@@ -62,7 +67,7 @@ const LoginForm = ({ setShowSignUpForm }) => {
         >
           Log In
         </button>
-        {err && <p>{err}</p>}
+        {err && <p>Error: {err.message}</p>}
       </form>
       <div className="w-80 p-8 border border-gray-300 rounded shadow-lg bg-white bg-opacity-75">
         <div className="text-center mt-4">
