@@ -11,7 +11,7 @@ const SearchEvent = () => {
 
   useEffect(() => {
     fetchData();
-  }, [cat, selectedCategory, selectedDate, searchTerm]); // Add searchTerm as dependency
+  }, [cat, selectedCategory, selectedDate, searchTerm]);
 
   const fetchData = async () => {
     try {
@@ -27,7 +27,7 @@ const SearchEvent = () => {
       }
 
       if (searchTerm) {
-        params.searchTerm = searchTerm; // Include searchTerm in parameters
+        params.searchTerm = searchTerm;
       }
 
       const res = await axios.get(url, { params });
