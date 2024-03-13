@@ -217,20 +217,22 @@ const Admin = () => {
                 }
               />
             </div>
-            <button
-              className="modal_btn"
-              type="button"
-              onClick={handleSaveClick}
-            >
-              Save
-            </button>
-            <button
-              className="modal_btn"
-              type="button"
-              onClick={handleCancelClick}
-            >
-              Cancel
-            </button>
+            <div className="btn_container">
+              <button
+                className="modal_btn"
+                type="button"
+                onClick={handleSaveClick}
+              >
+                Save
+              </button>
+              <button
+                className="modal_btn"
+                type="button"
+                onClick={handleCancelClick}
+              >
+                Cancel
+              </button>
+            </div>
           </form>
         </div>
       </div>

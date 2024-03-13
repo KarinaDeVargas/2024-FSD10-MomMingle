@@ -367,9 +367,9 @@ input[type="email"] {
 }
 
 .modal_btn {
-  padding: 10px 20px;
-  border: none;
+  border: 2x solid #3b82f6;
   border-radius: 5px;
+  padding: 10px 20px;
   color: #3b82f6;
 }
 
@@ -405,6 +405,7 @@ input[type="email"] {
   background-color: #f8f8f8;
   padding: 10px;
   border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .join_btn {
@@ -425,6 +426,28 @@ input[type="email"] {
 
 .join_btn:hover {
   background-color: #3b82f6;
+}
+
+.attendees-list {
+  padding: 10px;
+  margin: 10px;
+}
+
+.attendees-list li {
+  list-style: none;
+}
+
+.attendees-list li {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.attendees-list li span {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 10%;
+  background-color: #007bff;
+  color: #ffffff;
 }
 
 /* .app .container .home */

@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import DeleteIcon from "../images/delete.png";
 import EditIcon from "../images/edit.png";
+import { FaCalendarAlt, FaMapMarkerAlt, FaUsers } from "react-icons/fa";
 
 const SingleEvent = () => {
   const [post, setPost] = useState({});
@@ -13,12 +14,35 @@ const SingleEvent = () => {
   const navigate = useNavigate();
   const postId = location.pathname.split("/")[2];
   const { currentUser } = useContext(AuthContext);
+  const [attendees, setAttendees] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch event details
         const res = await axios.get(`/posts/${postId}`);
         setPost(res.data);
+
+        // Fetch attendees for the event
+        const attendeesRes = await axios.get(
+          `http://localhost:8800/api/events/${postId}/attendees`
+        );
+
+        // Fetch usernames for the fetched user_ids
+        const userIds = attendeesRes.data.map((attendee) => attendee.user_id);
+        const usersRes = await axios.get(
+          `http://localhost:8800/api/users?user_ids=${userIds.join(",")}`
+        );
+
+        // Combine attendees data with usernames
+        const attendeesWithUsernames = attendeesRes.data.map((attendee) => {
+          const user = usersRes.data.find(
+            (user) => user.user_id === attendee.user_id
+          );
+          return { ...attendee, username: user.username };
+        });
+
+        setAttendees(attendeesWithUsernames);
       } catch (err) {
         console.log(err);
       }
@@ -37,11 +61,25 @@ const SingleEvent = () => {
 
   const handleJoinEvent = async () => {
     try {
-      await axios.post(`/api/events/${postId}/attendees`, {
-        userId: currentUser.user_id,
-      });
-    } catch (err) {
-      console.error("Error joining event:", err);
+      const user_id = currentUser.user_id;
+      const response = await axios.post(
+        `http://localhost:8800/api/events/${postId}/attendees`,
+        {
+          user_id: user_id,
+          event_id: postId,
+        }
+      );
+      console.log("User joined event successfully:", response.data);
+      alert("You have successfully requested joining the event!");
+
+      // Fetch updated attendees list after joining the event
+      const attendeesRes = await axios.get(
+        `http://localhost:8800/api/events/${postId}/attendees`
+      );
+      setAttendees(attendeesRes.data);
+    } catch (error) {
+      console.error("Error joining event:", error);
+      alert("An error occurred while requesting. Please try again later.");
     }
   };
 
@@ -101,15 +139,73 @@ const SingleEvent = () => {
 
           <div className="eventSub">
             <div className="subContainer">
-              <p className="text-sm mb-2" style={{ margin: "20px" }}>
-                Event Date: {moment(post.event_date).format("YYYY-MM-DD HH:mm")}
+              <p
+                className="text-sm mb-2"
+                style={{
+                  margin: "15px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <FaMapMarkerAlt
+                  style={{
+                    marginRight: "10px",
+                    fontSize: "18px",
+                    color: "gray",
+                  }}
+                />
+                <span>Location: {post.location}</span>
               </p>
-              <p className="text-sm mb-2" style={{ margin: "20px" }}>
-                Location: {post.location}
+              <p
+                className="text-sm mb-2"
+                style={{
+                  margin: "15px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <FaCalendarAlt
+                  style={{
+                    marginRight: "10px",
+                    fontSize: "18px",
+                    color: "gray",
+                  }}
+                />
+                <span>
+                  Event Date:{" "}
+                  {moment(post.event_date).format("YYYY-MM-DD HH:mm")}
+                </span>
               </p>
               <button className="join_btn" onClick={handleJoinEvent}>
                 Join the Event
               </button>
+            </div>
+
+            <div className="subContainer">
+              <p
+                className="text-sm mb-2"
+                style={{
+                  margin: "15px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <FaUsers
+                  style={{
+                    marginRight: "10px",
+                    fontSize: "18px",
+                    color: "gray",
+                  }}
+                />
+                <span>Attendees:</span>
+              </p>
+              <ul className="attendees-list">
+                {attendees.map((attendee) => (
+                  <li key={attendee.att_id}>
+                    <span>{attendee.username}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import { FaMapMarkerAlt, FaCalendarAlt } from "react-icons/fa";
 
 const Events = () => {
   const [posts, setPosts] = useState([]);
@@ -58,10 +59,14 @@ const Events = () => {
             </Link>
             <p className="text-gray-600">{getText(post.description)}</p>
             <br />
-            <p className="text-gray-500">📍 Location: {post.location}</p>
-            <p className="text-gray-500">
-              📅 Date: {formatDate(post.event_date)}
-            </p>
+            <div className="flex items-center text-gray-500">
+              <FaMapMarkerAlt style={{ marginRight: "10px" }} />
+              Location: {post.location}
+            </div>
+            <div className="flex items-center text-gray-500">
+              <FaCalendarAlt style={{ marginRight: "10px" }} />
+              Date: {formatDate(post.event_date)}
+            </div>
           </div>
         </div>
       ))}

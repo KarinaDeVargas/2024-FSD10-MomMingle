@@ -12,18 +12,25 @@ export const getAttendees = (req, res) => {
 };
 
 export const addAttendee = (req, res) => {
-  const token = req.cookies.access_token;
-  if (!token) return res.status(401).json("Not authenticated!");
+  const { user_id, event_id } = req.body;
 
-  jwt.verify(token, "jwtkey", (err, userInfo) => {
-    if (err) return res.status(403).json("Token is not valid!");
+  // Assuming you have some validation for user_id and event_id
+  if (!user_id || !event_id) {
+    return res.status(400).json({ message: "Missing user_id or event_id" });
+  }
 
-    const q = "INSERT INTO attendees (event_id, user_id) VALUES (?, ?)";
-    const values = [req.params.id, userInfo.user_id];
+  // Insert the user into the attendees table
+  const q = "INSERT INTO attendees (user_id, event_id) VALUES (?, ?)";
+  db.query(q, [user_id, event_id], (err, result) => {
+    if (err) {
+      console.error("Error adding user to event:", err);
+      return res
+        .status(500)
+        .json({ message: "An error occurred while adding user to event" });
+    }
 
-    db.query(q, values, (err, data) => {
-      if (err) return res.status(500).json(err);
-      return res.json("Attendee has been added.");
-    });
+    return res
+      .status(201)
+      .json({ message: "User added to event successfully" });
   });
 };
