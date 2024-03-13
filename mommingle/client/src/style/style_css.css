@@ -410,7 +410,7 @@ input[type="email"] {
 
 .join_btn {
   width: 90%;
-  background-color: #53aeff;
+  background-color: #ffaeb0;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -425,7 +425,7 @@ input[type="email"] {
 }
 
 .join_btn:hover {
-  background-color: #3b82f6;
+  background-color: #ff8689;
 }
 
 .attendees-list {
@@ -446,7 +446,7 @@ input[type="email"] {
   display: inline-block;
   padding: 5px 10px;
   border-radius: 10%;
-  background-color: #007bff;
+  background-color: #ff8689;
   color: #ffffff;
 }
 
