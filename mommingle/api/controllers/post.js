@@ -2,11 +2,24 @@ import jwt from "jsonwebtoken";
 import { db } from "../db.js";
 
 export const getPosts = (req, res) => {
-  const q = req.query.category
-    ? "SELECT * FROM events WHERE category=?"
-    : "SELECT e.*, u.username FROM events e JOIN users u ON e.user_id = u.user_id";
+  let q = "SELECT e.*, u.username FROM events e JOIN users u ON e.user_id = u.user_id";
+  let queryParams = [];
+  
+  if (req.query.searchTerm && req.query.category) {
+    q += " WHERE title LIKE ? AND category=?";
+    queryParams.push(`%${req.query.searchTerm}%`, req.query.category);
+  } else if (req.query.searchTerm) {
+    q += " WHERE title LIKE ?";
+    queryParams.push(`%${req.query.searchTerm}%`);
+  } else if (req.query.category) {
+    q += " WHERE category=?";
+    queryParams.push(req.query.category);
+  }
 
-  db.query(q, [req.query.category], (err, data) => {
+  console.log("SQL Query:", q);
+  console.log("Query Parameters:", queryParams);
+
+  db.query(q, queryParams, (err, data) => {
     if (err) return res.status(500).send(err);
 
     return res.status(200).json(data);
