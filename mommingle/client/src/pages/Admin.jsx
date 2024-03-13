@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 
 const Admin = () => {
@@ -8,19 +7,20 @@ const Admin = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
   const [deleteUserId, setDeleteUserId] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false); // State to track admin status
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [editUser, setEditUser] = useState(null);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:8800/api/users");
+      setUsers(response.data);
+    } catch (error) {
+      handleFetchError(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get("http://localhost:8800/api/users");
-        setUsers(response.data);
-      } catch (error) {
-        handleFetchError(error);
-      }
-    };
-
     const checkAdminStatus = async () => {
       try {
         // Assuming currentUser contains user data including the role
@@ -69,6 +69,34 @@ const Admin = () => {
     }
   };
 
+  const openEditModal = (user) => {
+    setEditUser(user);
+    // Ensure the modal is shown here
+    document.getElementById("myModal").style.display = "block";
+  };
+
+  const handleSaveClick = () => {
+    axios
+      .put(`http://localhost:8800/api/users/${editUser.user_id}`, {
+        username: editUser.username,
+        email: editUser.email,
+        role: editUser.role,
+      })
+      .then(() => {
+        window.alert("User data updated successfully!");
+        fetchUsers();
+      })
+      .catch((error) => {
+        console.error("Error updating user data:", error);
+        window.alert("Failed to update user data. Please try again.");
+      });
+    document.getElementById("myModal").style.display = "none";
+  };
+
+  const handleCancelClick = () => {
+    document.getElementById("myModal").style.display = "none";
+  };
+
   return (
     <div className="usersPanel">
       <div className="usersContainer">
@@ -113,9 +141,12 @@ const Admin = () => {
                               <td>{user.email}</td>
                               <td>{user.role}</td>
                               <td>
-                                <Link to={`/editUser/${user.user_id}`}>
-                                  <button className="table_btn">Edit</button>
-                                </Link>
+                                <button
+                                  className="table_btn"
+                                  onClick={() => openEditModal(user)}
+                                >
+                                  Edit
+                                </button>
                                 <button
                                   className="table_btn"
                                   onClick={() =>
@@ -135,6 +166,72 @@ const Admin = () => {
               )}
             </>
           )}
+        </div>
+      </div>
+      {/* Modal */}
+      <div id="myModal" className="modal">
+        <div className="modal-content">
+          <span
+            className="close"
+            onClick={() =>
+              (document.getElementById("myModal").style.display = "none")
+            }
+          >
+            &times;
+          </span>
+          <form>
+            <h1>Edit User</h1>
+            <div className="box">
+              <label htmlFor="username">Username:</label>
+              <input
+                className="input"
+                type="text"
+                id="username"
+                value={editUser?.username || ""}
+                onChange={(e) =>
+                  setEditUser({ ...editUser, username: e.target.value })
+                }
+              />
+            </div>
+            <div className="box">
+              <label htmlFor="email">Email:</label>
+              <input
+                className="input"
+                type="text"
+                id="email"
+                value={editUser?.email || ""}
+                onChange={(e) =>
+                  setEditUser({ ...editUser, email: e.target.value })
+                }
+              />
+            </div>
+            <div className="box">
+              <label htmlFor="role">Role:</label>
+              <input
+                className="input"
+                type="text"
+                id="role"
+                value={editUser?.role || ""}
+                onChange={(e) =>
+                  setEditUser({ ...editUser, role: e.target.value })
+                }
+              />
+            </div>
+            <button
+              className="modal_btn"
+              type="button"
+              onClick={handleSaveClick}
+            >
+              Save
+            </button>
+            <button
+              className="modal_btn"
+              type="button"
+              onClick={handleCancelClick}
+            >
+              Cancel
+            </button>
+          </form>
         </div>
       </div>
     </div>

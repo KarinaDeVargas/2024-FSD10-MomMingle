@@ -47,7 +47,6 @@ export const login = (req, res) => {
           const token = jwt.sign({ user_id: data[0].user_id }, "jwtkey");
           const { password, ...other } = data[0];
 
-          console.log("Login response data:", other); // Log the response data
           res
             .cookie("access_token", token, {
               httpOnly: true,

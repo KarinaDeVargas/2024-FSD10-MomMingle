@@ -6,6 +6,7 @@ import { Server } from "socket.io";
 import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
 import userRoutes from "./routes/users.js";
+import eventRoutes from "./routes/events.js";
 import chatController from "./controllers/chat.js";
 import cors from "cors";
 
@@ -66,6 +67,7 @@ io.on("connection", (socket) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/events", eventRoutes);
 
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);

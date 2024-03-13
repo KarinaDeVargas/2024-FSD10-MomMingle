@@ -9,6 +9,7 @@ import SingleEvent from "./pages/SingleEvent";
 import Events from "./pages/Events";
 import Messages from "./pages/Messages";
 import Admin from "./pages/Admin";
+import EditUser from "./pages/EditUser";
 import "./style/style_css.css";
 import "./style/tailwind.css";
 
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: <Admin />,
+      },
+      {
+        path: "/editUser/:id",
+        element: <EditUser />,
       },
     ],
   },

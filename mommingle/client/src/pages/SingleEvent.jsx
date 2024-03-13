@@ -35,15 +35,25 @@ const SingleEvent = () => {
     }
   };
 
+  const handleJoinEvent = async () => {
+    try {
+      await axios.post(`/api/events/${postId}/attendees`, {
+        userId: currentUser.user_id,
+      });
+    } catch (err) {
+      console.error("Error joining event:", err);
+    }
+  };
+
   return (
     <div className="container mx-auto p-8">
       <div className="bg-white shadow-lg rounded-lg p-8">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
-            <span className="text-sm font-bold mr-2">
-              Host: {post.username}
+            <span className="text-sm font-bold mr-4">
+              Host By: {post.username}
             </span>
-            <p className="text-xs">
+            <p className="text-sm">
               Posted {moment(post.created_at).fromNow()}
             </p>
           </div>
@@ -70,22 +80,39 @@ const SingleEvent = () => {
           )}
         </div>
         <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-        <img
-          className="w-full h-48 object-cover object-center"
-          src={`../upload/${post.img}`}
-          alt={post.title}
-        />
-        <p
-          className="text-base mb-4"
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(post.description),
-          }}
-        ></p>
-        <p className="text-sm mb-2">Event Date: {post.event_date}</p>
-        <p className="text-sm mb-2">Location: {post.location}</p>
-        <p className="text-sm mb-2">Category: {post.category}</p>
-        <p className="text-sm mb-2">Activities: {post.activities}</p>
-        <p className="text-sm mb-2">Age Range: {post.age_range}</p>
+        <div className="flex">
+          <div className="eventMain">
+            <img
+              className="w-full"
+              src={`../upload/${post.img}`}
+              alt={post.title}
+            />
+            <p
+              className="text-base mb-4"
+              style={{ marginBottom: "30px", marginTop: "20px" }}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(post.description),
+              }}
+            ></p>
+            <p className="text-sm mb-2">Category: {post.category}</p>
+            <p className="text-sm mb-2">Activities: {post.activities}</p>
+            <p className="text-sm mb-2">Age Range: {post.age_range}</p>
+          </div>
+
+          <div className="eventSub">
+            <div className="subContainer">
+              <p className="text-sm mb-2" style={{ margin: "20px" }}>
+                Event Date: {moment(post.event_date).format("YYYY-MM-DD HH:mm")}
+              </p>
+              <p className="text-sm mb-2" style={{ margin: "20px" }}>
+                Location: {post.location}
+              </p>
+              <button className="join_btn" onClick={handleJoinEvent}>
+                Join the Event
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
