@@ -11,11 +11,11 @@ const SearchEvent = () => {
 
   useEffect(() => {
     fetchData();
-  }, [cat, selectedCategory, selectedDate]);
+  }, [cat, selectedCategory, selectedDate, searchTerm]); // Add searchTerm as dependency
 
   const fetchData = async () => {
     try {
-      let url = `/events`;
+      let url = `/posts`;
       let params = {};
 
       if (selectedCategory) {
@@ -24,6 +24,10 @@ const SearchEvent = () => {
 
       if (selectedDate) {
         params.date = selectedDate;
+      }
+
+      if (searchTerm) {
+        params.searchTerm = searchTerm; // Include searchTerm in parameters
       }
 
       const res = await axios.get(url, { params });
@@ -35,6 +39,11 @@ const SearchEvent = () => {
 
   const handleSearch = () => {
     fetchData();
+  };
+
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
   };
 
   return (
@@ -81,6 +90,11 @@ const SearchEvent = () => {
             className="bg-white rounded-lg shadow-md overflow-hidden"
             key={post.event_id}
           >
+            <img
+              className="w-full h-48 object-cover object-center"
+              src={`../upload/${post.img}`}
+              alt={post.title}
+            />
             <div className="p-4">
               <Link
                 to={`/post/${post.event_id}`}
@@ -88,7 +102,7 @@ const SearchEvent = () => {
               >
                 {post.title}
               </Link>
-              <p className="text-gray-600">{post.description}</p>
+              <p className="text-gray-600">{getText(post.description)}</p>
               <p className="text-gray-500">Hosted By: {post.username}</p>
               <Link
                 to={`/post/${post.event_id}`}
