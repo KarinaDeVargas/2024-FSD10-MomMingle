@@ -94,21 +94,15 @@ const SingleEvent = () => {
   const handleJoinEvent = async () => {
     try {
       const user_id = currentUser.user_id;
-      const response = await axios.post(
-        `http://localhost:8800/api/events/${postId}/attendees`,
-        {
-          user_id: user_id,
-          event_id: postId,
-        }
-      );
-      console.log("User joined event successfully:", response.data);
+      await axios.post(`http://localhost:8800/api/events/${postId}/attendees`, {
+        user_id: user_id,
+        event_id: postId,
+      });
+      console.log("User joined event successfully:");
       alert("You have successfully requested joining the event!");
 
-      // Fetch updated attendees list after joining the event
-      const attendeesRes = await axios.get(
-        `http://localhost:8800/api/events/${postId}/attendees`
-      );
-      setAttendees(attendeesRes.data);
+      // Update local state immediately
+      setAttendees([...attendees, { user_id, username: currentUser.username }]);
     } catch (error) {
       console.error("Error joining event:", error);
       alert("An error occurred while requesting. Please try again later.");
@@ -126,6 +120,15 @@ const SingleEvent = () => {
         }
       );
       console.log("Comment added successfully:", response.data);
+      // Update local state immediately
+      setComments([
+        ...comments,
+        {
+          comment_id: response.data.comment_id,
+          username: currentUser.username,
+          cmt_text: commentText,
+        },
+      ]);
       // Clear the comment input after submission
       setCommentText("");
     } catch (error) {
