@@ -31,9 +31,9 @@ export const login = (req, res) => {
 
     db.query(q, [req.body.username], (err, data) => {
       if (err) {
-        reject(err);
+        return res.status(500).json(err);
       } else if (data.length === 0) {
-        reject("User not found!");
+        return res.status(401).json({ error: "User not found!" });
       } else {
         //Check password
         const isPasswordCorrect = bcrypt.compareSync(
@@ -42,18 +42,15 @@ export const login = (req, res) => {
         );
 
         if (!isPasswordCorrect) {
-          reject("Wrong username or password!");
+          return res.status(401).json({ error: "Wrong username or password!" });
         } else {
           const token = jwt.sign({ user_id: data[0].user_id }, "jwtkey");
           const { password, ...other } = data[0];
 
-          res
-            .cookie("access_token", token, {
-              httpOnly: true,
-            })
-            .status(200)
-            .json(other);
-          resolve(other); // Resolve with the user data (without password)
+          res.cookie("access_token", token, {
+            httpOnly: true,
+          });
+          return res.status(200).json(other);
         }
       }
     });

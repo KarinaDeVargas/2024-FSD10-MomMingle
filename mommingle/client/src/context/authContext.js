@@ -12,8 +12,11 @@ export const AuthContextProvider = ({ children }) => {
     try {
       const res = await axios.post("/auth/login", inputs);
       setCurrentUser(res.data);
+      console.log("Login response from authContext:", res.data);
+      return res.data;
     } catch (error) {
       console.error("Login error:", error);
+      throw error;
     }
   };
 

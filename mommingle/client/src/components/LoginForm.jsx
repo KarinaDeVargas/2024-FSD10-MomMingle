@@ -8,9 +8,9 @@ const LoginForm = ({ setShowSignUpForm }) => {
     password: "",
   });
   const [err, setError] = useState(null);
+  const [validationError, setValidationError] = useState("");
 
   const navigate = useNavigate();
-
   const { login } = useContext(AuthContext);
 
   const handleChange = (e) => {
@@ -19,16 +19,20 @@ const LoginForm = ({ setShowSignUpForm }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!inputs.username || !inputs.password) {
+      setValidationError("Please enter both username and password.");
+      return;
+    }
     try {
       const response = await login(inputs);
-      console.log("Login response:", response); // Log the entire response
-      if (response && response.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/events");
-      }
+      console.log("Login response:", response); // Log the response from the login function
+      navigate("/events");
     } catch (err) {
-      setError(err.response ? err.response.data : err);
+      if (err.response && err.response.status === 401) {
+        setValidationError("Incorrect password. Please try again.");
+      } else {
+        setError(err.response ? err.response.data : err);
+      }
     }
   };
 
@@ -67,7 +71,15 @@ const LoginForm = ({ setShowSignUpForm }) => {
         >
           Log In
         </button>
-        {err && <p>Error: {err.message}</p>}
+        {validationError && (
+          <p
+            className="text-red-500"
+            style={{ marginBottom: "20px", marginTop: "20px" }}
+          >
+            {validationError}
+          </p>
+        )}
+        {err && <p className="text-red-500">Error: {err.message}</p>}
       </form>
       <div className="w-80 p-8 border border-gray-300 rounded shadow-lg bg-white bg-opacity-75">
         <div className="text-center mt-4">

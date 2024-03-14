@@ -15,6 +15,8 @@ const SingleEvent = () => {
   const postId = location.pathname.split("/")[2];
   const { currentUser } = useContext(AuthContext);
   const [attendees, setAttendees] = useState([]);
+  const [commentText, setCommentText] = useState("");
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +45,29 @@ const SingleEvent = () => {
         });
 
         setAttendees(attendeesWithUsernames);
+
+        // Fetch comments for the event
+        const commentsRes = await axios.get(
+          `http://localhost:8800/api/events/${postId}/comments`
+        );
+
+        // Fetch usernames for the fetched user_ids in comments
+        const commentUserIds = commentsRes.data.map(
+          (comment) => comment.user_id
+        );
+        const commentUsersRes = await axios.get(
+          `http://localhost:8800/api/users?user_ids=${commentUserIds.join(",")}`
+        );
+
+        // Combine comments data with usernames
+        const commentsWithUsernames = commentsRes.data.map((comment) => {
+          const user = commentUsersRes.data.find(
+            (user) => user.user_id === comment.user_id
+          );
+          return { ...comment, username: user.username };
+        });
+
+        setComments(commentsWithUsernames);
       } catch (err) {
         console.log(err);
       }
@@ -80,6 +105,34 @@ const SingleEvent = () => {
     } catch (error) {
       console.error("Error joining event:", error);
       alert("An error occurred while requesting. Please try again later.");
+    }
+  };
+
+  const submitComment = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8800/api/events/${postId}/comments`,
+        {
+          cmt_text: commentText,
+          user_id: currentUser.user_id,
+          event_id: postId,
+        }
+      );
+      console.log("Comment added successfully:", response.data);
+      // Clear the comment input after submission
+      setCommentText("");
+    } catch (error) {
+      if (error.response) {
+        console.error(
+          "Server responded with status code:",
+          error.response.status
+        );
+        console.error("Error message:", error.response.data);
+      } else if (error.request) {
+        console.error("No response received from the server:", error.request);
+      } else {
+        console.error("Error setting up the request:", error.message);
+      }
     }
   };
 
@@ -132,13 +185,35 @@ const SingleEvent = () => {
                 __html: DOMPurify.sanitize(post.description),
               }}
             ></p>
-            <p className="text-sm mb-2">Category: {post.category}</p>
-            <p className="text-sm mb-2">Activities: {post.activities}</p>
-            <p className="text-sm mb-2">Age Range: {post.age_range}</p>
+            <div className="subContainer">
+              <h1>Comment</h1>
+              <input
+                className="comment-input"
+                type="text"
+                placeholder="Leave your comment"
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
+              />
+              <button onClick={() => submitComment()}>Save</button>
+            </div>
+            {/*FIXME: Display Comment */}
+            <div className="subContainer">
+              <ul>
+                {comments.map((comment) => (
+                  <li key={comment.comment_id}>
+                    <strong>{comment.username}: </strong>
+                    {comment.cmt_text}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div className="eventSub">
             <div className="subContainer">
+              <p className="text-sm mb-2">Category: {post.category}</p>
+              <p className="text-sm mb-2">Activities: {post.activities}</p>
+              <p className="text-sm mb-2">Age Range: {post.age_range}</p>
               <p
                 className="text-sm mb-2"
                 style={{
