@@ -4,7 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
 const CreateEvent = () => {
   const state = useLocation().state;
@@ -12,7 +12,7 @@ const CreateEvent = () => {
   const [title, setTitle] = useState(state?.title || "");
   const [file, setFile] = useState(null);
   const [category, setCategory] = useState(state?.category || "");
-  const [eventDate, setEventDate] = useState(state?.event_date || null);
+  const [eventDate, setEventDate] = useState(state?.event_date || "");
   const [location, setLocation] = useState(state?.location || "");
   const [activities, setActivities] = useState(state?.activities || "");
   const [ageRange, setAgeRange] = useState(state?.age_range || "");
@@ -55,16 +55,28 @@ const CreateEvent = () => {
     const imgUrl = await upload();
 
     try {
-      await axios.put(`/posts/${postId}`, {
-        title,
-        description: value,
-        category,
-        event_date: eventDate,
-        location,
-        activities,
-        age_range: ageRange,
-        img: file ? imgUrl : "",
-      });
+      postId
+        ? await axios.put(`/posts/${postId}`, {
+            title,
+            description: value,
+            category,
+            event_date: eventDate,
+            location,
+            activities,
+            age_range: ageRange,
+            img: file ? imgUrl : "",
+          })
+        : await axios.post(`/posts/`, {
+            title,
+            description: value,
+            category,
+            event_date: eventDate,
+            location,
+            activities,
+            age_range: ageRange,
+            img: file ? imgUrl : "",
+            created_at: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+          });
       navigate("/events");
     } catch (err) {
       console.log(err);
@@ -97,7 +109,6 @@ const CreateEvent = () => {
 
         <h1>Event Date</h1>
         <DatePicker
-          className="event-input"
           selected={eventDate}
           onChange={(date) => setEventDate(date)}
           placeholderText="Select Event Date"

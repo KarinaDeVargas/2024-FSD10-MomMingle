@@ -2,9 +2,10 @@ import jwt from "jsonwebtoken";
 import { db } from "../db.js";
 
 export const getPosts = (req, res) => {
-  let q = "SELECT e.*, u.username FROM events e JOIN users u ON e.user_id = u.user_id";
+  let q =
+    "SELECT e.*, u.username FROM events e JOIN users u ON e.user_id = u.user_id";
   let queryParams = [];
-  
+
   if (req.query.searchTerm && req.query.category) {
     q += " WHERE title LIKE ? AND category=?";
     queryParams.push(`%${req.query.searchTerm}%`, req.query.category);
@@ -97,6 +98,10 @@ export const updatePost = (req, res) => {
     if (!postId) {
       return res.status(400).json("Post ID is missing in the request.");
     }
+
+    console.log("User Info:", userInfo);
+    console.log("Post ID:", postId);
+    console.log("Request Body:", req.body);
 
     const q =
       "UPDATE events SET `title`=?, `description`=?, `img`=?, `category`=?, `event_date`=?, `location`=?, `activities`=?, `age_range`=? WHERE `event_id` = ? AND `user_id` = ?";
