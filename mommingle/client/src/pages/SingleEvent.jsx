@@ -6,7 +6,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import DeleteIcon from "../images/delete.png";
 import EditIcon from "../images/edit.png";
-import { FaCalendarAlt, FaMapMarkerAlt, FaUsers } from "react-icons/fa";
+import {
+  FaCalendarAlt,
+  FaMapMarkerAlt,
+  FaUsers,
+  FaChild,
+  FaRunning,
+  FaTag,
+} from "react-icons/fa";
 
 const SingleEvent = () => {
   const [post, setPost] = useState({});
@@ -186,21 +193,22 @@ const SingleEvent = () => {
               }}
             ></p>
             <div className="subContainer">
-              <h1>Comment</h1>
-              <input
-                className="comment-input"
-                type="text"
-                placeholder="Leave your comment"
-                value={commentText}
-                onChange={(e) => setCommentText(e.target.value)}
-              />
-              <button onClick={() => submitComment()}>Save</button>
-            </div>
-            {/*FIXME: Display Comment */}
-            <div className="subContainer">
+              <h1 style={{ margin: "10px" }}>Comment</h1>
+              <div className="comment-container">
+                <input
+                  className="comment-input"
+                  type="text"
+                  placeholder="Leave your comment"
+                  value={commentText}
+                  onChange={(e) => setCommentText(e.target.value)}
+                />
+                <button className="save-button" onClick={() => submitComment()}>
+                  Save
+                </button>
+              </div>
               <ul>
                 {comments.map((comment) => (
-                  <li key={comment.comment_id}>
+                  <li key={comment.comment_id} style={{ marginBottom: "5px" }}>
                     <strong>{comment.username}: </strong>
                     {comment.cmt_text}
                   </li>
@@ -211,9 +219,57 @@ const SingleEvent = () => {
 
           <div className="eventSub">
             <div className="subContainer">
-              <p className="text-sm mb-2">Category: {post.category}</p>
-              <p className="text-sm mb-2">Activities: {post.activities}</p>
-              <p className="text-sm mb-2">Age Range: {post.age_range}</p>
+              <p
+                className="text-sm mb-2"
+                style={{
+                  margin: "15px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <FaTag
+                  style={{
+                    marginRight: "10px",
+                    fontSize: "18px",
+                    color: "gray",
+                  }}
+                />
+                <span>Category: {post.category}</span>
+              </p>
+              <p
+                className="text-sm mb-2"
+                style={{
+                  margin: "15px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <FaRunning
+                  style={{
+                    marginRight: "10px",
+                    fontSize: "18px",
+                    color: "gray",
+                  }}
+                />
+                <span>Activities: {post.activities}</span>
+              </p>
+              <p
+                className="text-sm mb-2"
+                style={{
+                  margin: "15px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <FaChild
+                  style={{
+                    marginRight: "10px",
+                    fontSize: "18px",
+                    color: "gray",
+                  }}
+                />
+                <span>Age Range: {post.age_range}</span>
+              </p>
               <p
                 className="text-sm mb-2"
                 style={{

@@ -408,6 +408,47 @@ input[type="email"] {
   margin-bottom: 20px;
 }
 
+.subContainer h1 {
+  margin-bottom: 10px;
+}
+
+.subContainer .comment-container {
+  display: flex;
+  margin: 10px;
+}
+
+.subContainer input.comment-input {
+  flex: 1;
+}
+
+.save-button {
+  margin-bottom: 15px;
+  margin-left: 10px;
+  padding: 0 15px;
+  background-color: #ffaeb0;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.save-button:hover {
+  background-color: #ff8689;
+}
+
+.subContainer ul {
+  padding-left: 0;
+}
+
+.subContainer li {
+  margin: 10px;
+}
+
 .join_btn {
   width: 90%;
   background-color: #ffaeb0;
