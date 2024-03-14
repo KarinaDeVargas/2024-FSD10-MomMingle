@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
 import userRoutes from "./routes/users.js";
 import eventRoutes from "./routes/events.js";
+import messagesRoutes from "./routes/messages.js";
 import chatController from "./controllers/chat.js";
 import cors from "cors";
 
@@ -46,15 +47,17 @@ app.post("/api/upload", upload.single("file"), function (req, res) {
 // Socket.IO integration
 io.on("connection", (socket) => {
   console.log("A user connected");
+  io.emit("message", { test: "This is a test message to all clients" }); // Test emit to all
 
-  // Handle user login
-  socket.on("login", (userId) => {
-    socket.join(userId); // Join a room based on user ID
+  socket.on("joinRoom", ({ roomId }) => {
+    socket.join(roomId);
+    console.log(`Socket ${socket.id} joined room ${roomId}`);
   });
 
   // Handle incoming chat messages
   socket.on("chatMessage", async ({ senderId, receiverId, message }) => {
     await chatController.saveAndSendMessage(io, senderId, receiverId, message);
+
   });
 
   // Handle disconnect
@@ -68,6 +71,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/events", eventRoutes);
+app.use("/api/messages", messagesRoutes);
 
 server.listen(port, () => {
   console.log(`Server running on port ${port}`);

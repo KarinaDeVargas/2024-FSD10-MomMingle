@@ -25,7 +25,7 @@ export const register = (req, res) => {
 };
 
 export const login = (req, res) => {
-  return new Promise((resolve, reject) => {
+  try {
     //CHECK USER
     const q = "SELECT * FROM users WHERE username = ?";
 
@@ -54,7 +54,9 @@ export const login = (req, res) => {
         }
       }
     });
-  });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 export const logout = (req, res) => {

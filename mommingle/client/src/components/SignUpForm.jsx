@@ -20,7 +20,7 @@ const SignUpForm = ({setShowSignUpForm}) => {
     e.preventDefault();
     try {
       await axios.post("/auth/register", inputs);
-      navigate("/events");
+      window.location.reload();
     } catch (err) {
       setError(err.response.data);
     }

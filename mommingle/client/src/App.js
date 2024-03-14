@@ -18,7 +18,7 @@ const Layout = () => {
     <div className="flex flex-col">
       <Navbar />
       <div className="app">
-        <div className="container">
+        <div className="container mb-16">
           <Outlet />
         </div>
       </div>
