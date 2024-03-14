@@ -68,14 +68,6 @@ const Navbar = () => {
                   Create Event
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/searchevent"
-                  className="text-pastel-salmon hover:text-pastel-pink"
-                >
-                  Search Event
-                </Link>
-              </li>
               {isAdmin && (
                 <li>
                   <Link
