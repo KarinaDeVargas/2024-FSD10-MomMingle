@@ -29,12 +29,11 @@ const Navbar = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full sticky top-0 ">
       <nav
         className={`navbar flex items-center justify-between py-4 px-4 ${
           currentUser ? "block" : "hidden"
-        } bg-pastel-peach bg-opacity-50`}
-        style={{ position: "relative", zIndex: 1 }}
+        } bg-pastel-peach bg-opacity-90 z-50`}
       >
         <div className="flex items-center">
           <div className="logo" onClick={handleLogoClick}>

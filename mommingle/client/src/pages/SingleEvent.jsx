@@ -112,7 +112,7 @@ const SingleEvent = () => {
       Swal.fire({
         icon: "error",
         title: "Error!",
-        text: "An error occurred while requesting. Please try again later.",
+        text: error?.response?.data?.message,
       });
     }
   };
@@ -214,7 +214,7 @@ const SingleEvent = () => {
                   onChange={(e) => setCommentText(e.target.value)}
                 />
                 <button className="save-button" onClick={() => submitComment()}>
-                  Save
+                  Comment
                 </button>
               </div>
               <ul>

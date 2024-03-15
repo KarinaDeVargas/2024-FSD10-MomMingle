@@ -18,18 +18,38 @@ export const addAttendee = (req, res) => {
     return res.status(400).json({ message: "Missing user_id or event_id" });
   }
 
-  const q = "INSERT INTO attendees (user_id, event_id) VALUES (?, ?)";
-  db.query(q, [user_id, event_id], (err, result) => {
-    if (err) {
-      console.error("Error adding user to event:", err);
+  // Check if the user is already attending the event
+  const checkQuery =
+    "SELECT * FROM attendees WHERE user_id = ? AND event_id = ?";
+  db.query(checkQuery, [user_id, event_id], (checkErr, checkResult) => {
+    if (checkErr) {
+      console.error("Error checking attendee:", checkErr);
       return res
         .status(500)
-        .json({ message: "An error occurred while adding user to event" });
+        .json({ message: "An error occurred while checking attendee" });
     }
 
-    return res
-      .status(201)
-      .json({ message: "User added to event successfully" });
+    if (checkResult.length > 0) {
+      return res
+        .status(400)
+        .json({ message: "User is already attending the event" });
+    }
+
+    // If the user is not already attending the event
+    const insertQuery =
+      "INSERT INTO attendees (user_id, event_id) VALUES (?, ?)";
+    db.query(insertQuery, [user_id, event_id], (err, result) => {
+      if (err) {
+        console.error("Error adding user to event:", err);
+        return res
+          .status(500)
+          .json({ message: "An error occurred while adding user to event" });
+      }
+
+      return res
+        .status(201)
+        .json({ message: "User added to event successfully" });
+    });
   });
 };
 
