@@ -82,12 +82,6 @@ const SearchEvent = () => {
           <option value="Parenting">Parenting</option>
           <option value="Playdate">Playdate</option>
         </select>
-        <input
-          type="date"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          className="border rounded px-4 py-2 ml-4"
-        />
         <button
           onClick={handleSearch}
           className="bg-blue-500 text-white px-4 py-2 rounded ml-4"
