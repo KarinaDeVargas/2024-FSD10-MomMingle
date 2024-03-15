@@ -26,9 +26,7 @@ const ChatApp = () => {
   }, []);
 
   useEffect(() => {
-    socketRef.current = io.connect(
-      "https://mommingle-00a20919c13a.herokuapp.com/"
-    );
+    socketRef.current = io.connect("http://localhost:8800/");
 
     socketRef.current.on("message", (data) => {
       setMessages((prevMessages) => [...prevMessages, data]);

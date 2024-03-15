@@ -26,7 +26,7 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-const port = process.env.PORT;
+const port = process.env.PORT || 8800;
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

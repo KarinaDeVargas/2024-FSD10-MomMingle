@@ -11,7 +11,7 @@ const EditUser = () => {
 
   useEffect(() => {
     axios
-      .get(`https://mommingle-00a20919c13a.herokuapp.com/api/users/${id}`)
+      .get(`http://localhost:8800/api/users/${id}`)
       .then((response) => {
         setEditedData(response.data);
       })
@@ -29,10 +29,7 @@ const EditUser = () => {
 
   const handleSaveClick = () => {
     axios
-      .put(
-        `https://mommingle-00a20919c13a.herokuapp.com/api/users/${id}`,
-        editedData
-      )
+      .put(`http://localhost:8800/api/users/${id}`, editedData)
       .then(() => {
         navigate("/admin");
       })
