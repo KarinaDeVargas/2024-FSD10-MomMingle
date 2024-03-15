@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "mommingle",
+    "password": "mommingle",
+    "database": "mommingle",
+    "host": "database-mommingle.cte2k484o8kc.us-east-1.rds.amazonaws.com",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "mommingle",
+    "password": "mommingle",
+    "database": "mommingle",
+    "host": "database-mommingle.cte2k484o8kc.us-east-1.rds.amazonaws.com",
+    "dialect": "mysql",
+    "ssl": {
+      "ca": "config/amazon-rds-ca-cert.pem"
+    }
+  }
+}

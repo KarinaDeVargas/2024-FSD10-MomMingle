@@ -51,7 +51,7 @@
   "main": "index.js",
   "author": "",
   "license": "ISC",
-  "proxy": "http://localhost:8800/api/",
+  "proxy": "https://mommingle-00a20919c13a.herokuapp.com/api/",
   "devDependencies": {
     "tailwindcss": "^3.4.1"
   }

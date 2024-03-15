@@ -26,7 +26,9 @@ const ChatApp = () => {
   }, []);
 
   useEffect(() => {
-    socketRef.current = io.connect("http://localhost:8800");
+    socketRef.current = io.connect(
+      "https://mommingle-00a20919c13a.herokuapp.com/"
+    );
 
     socketRef.current.on("message", (data) => {
       setMessages((prevMessages) => [...prevMessages, data]);
@@ -102,9 +104,7 @@ const ChatApp = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-12 gap-4">
         <div className="col-span-3 border-r border-gray-300 pr-4">
-          <h2 className="text-3xl font-semibold mb-4 border-b pb-2">
-            Chat
-          </h2>
+          <h2 className="text-3xl font-semibold mb-4 border-b pb-2">Chat</h2>
           <ul>
             {users.map((user) => (
               <li

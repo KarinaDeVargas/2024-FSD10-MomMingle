@@ -13,7 +13,9 @@ const Admin = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:8800/api/users");
+      const response = await axios.get(
+        "https://mommingle-00a20919c13a.herokuapp.com/"
+      );
       setUsers(response.data);
     } catch (error) {
       handleFetchError(error);
@@ -44,7 +46,9 @@ const Admin = () => {
 
   const deleteUser = async (userId) => {
     try {
-      await axios.delete(`http://localhost:8800/api/users/${userId}`);
+      await axios.delete(
+        `https://mommingle-00a20919c13a.herokuapp.com/api/users/${userId}`
+      );
       setUsers(users.filter((user) => user.user_id !== userId));
       window.alert("User deleted successfully!");
     } catch (error) {
@@ -77,11 +81,14 @@ const Admin = () => {
 
   const handleSaveClick = () => {
     axios
-      .put(`http://localhost:8800/api/users/${editUser.user_id}`, {
-        username: editUser.username,
-        email: editUser.email,
-        role: editUser.role,
-      })
+      .put(
+        `https://mommingle-00a20919c13a.herokuapp.com/api/users/${editUser.user_id}`,
+        {
+          username: editUser.username,
+          email: editUser.email,
+          role: editUser.role,
+        }
+      )
       .then(() => {
         window.alert("User data updated successfully!");
         fetchUsers();

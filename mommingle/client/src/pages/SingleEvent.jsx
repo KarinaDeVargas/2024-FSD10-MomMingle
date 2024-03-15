@@ -35,13 +35,15 @@ const SingleEvent = () => {
 
         // Fetch attendees for the event
         const attendeesRes = await axios.get(
-          `http://localhost:8800/api/events/${postId}/attendees`
+          `https://mommingle-00a20919c13a.herokuapp.com/api/events/${postId}/attendees`
         );
 
         // Fetch usernames for the fetched user_ids
         const userIds = attendeesRes.data.map((attendee) => attendee.user_id);
         const usersRes = await axios.get(
-          `http://localhost:8800/api/users?user_ids=${userIds.join(",")}`
+          `https://mommingle-00a20919c13a.herokuapp.com/api/users?user_ids=${userIds.join(
+            ","
+          )}`
         );
 
         // Combine attendees data with usernames
@@ -56,7 +58,7 @@ const SingleEvent = () => {
 
         // Fetch comments for the event
         const commentsRes = await axios.get(
-          `http://localhost:8800/api/events/${postId}/comments`
+          `https://mommingle-00a20919c13a.herokuapp.com/events/${postId}/comments`
         );
 
         // Fetch usernames for the fetched user_ids in comments
@@ -64,7 +66,9 @@ const SingleEvent = () => {
           (comment) => comment.user_id
         );
         const commentUsersRes = await axios.get(
-          `http://localhost:8800/api/users?user_ids=${commentUserIds.join(",")}`
+          `https://mommingle-00a20919c13a.herokuapp.com/api/users?user_ids=${commentUserIds.join(
+            ","
+          )}`
         );
 
         // Combine comments data with usernames
@@ -95,10 +99,13 @@ const SingleEvent = () => {
   const handleJoinEvent = async () => {
     try {
       const user_id = currentUser.user_id;
-      await axios.post(`http://localhost:8800/api/events/${postId}/attendees`, {
-        user_id: user_id,
-        event_id: postId,
-      });
+      await axios.post(
+        `https://mommingle-00a20919c13a.herokuapp.com/api/events/${postId}/attendees`,
+        {
+          user_id: user_id,
+          event_id: postId,
+        }
+      );
       console.log("User joined event successfully:");
       Swal.fire({
         icon: "success",
@@ -120,7 +127,7 @@ const SingleEvent = () => {
   const submitComment = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8800/api/events/${postId}/comments`,
+        `https://mommingle-00a20919c13a.herokuapp.com/api/events/${postId}/comments`,
         {
           cmt_text: commentText,
           user_id: currentUser.user_id,

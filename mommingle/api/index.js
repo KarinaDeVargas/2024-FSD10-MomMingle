@@ -26,7 +26,7 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-const port = process.env.PORT || 8800;
+const port = process.env.PORT;
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -57,7 +57,6 @@ io.on("connection", (socket) => {
   // Handle incoming chat messages
   socket.on("chatMessage", async ({ senderId, receiverId, message }) => {
     await chatController.saveAndSendMessage(io, senderId, receiverId, message);
-
   });
 
   // Handle disconnect
