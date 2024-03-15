@@ -10,6 +10,7 @@ MomMingle serves as a versatile web application catering to the diverse needs an
 
 # Technologies Used
 Front-end:
+
 ►React.js: Provides a component-based architecture for dynamic and interactive front-end experiences.
 
 ►HTML: Structures web pages and defines their content.
@@ -19,14 +20,17 @@ Front-end:
 ►JavaScript: Adds interactivity and behavior to web pages, enhancing user experience through dynamic content and functionality.
 
 Back-end:
+
 ►Node.js: Facilitates the development of scalable and efficient server applications.
 
 ►Express.js: Provides a robust set of features for building web APIs and server-side applications with minimal code and effort.
 
 Database:
+
 ►MySQL: Offers scalability, reliability, and robust features for storing and querying structured data efficiently.
 
 Authentication:
+
 ►JSON Web Tokens (JWT): Used for implementing authentication and authorization in web applications securely.
 
 # Key Features
@@ -78,6 +82,6 @@ MomMingle is not just another social media platform; it's a vibrant and supporti
 # MomMingle
 <img src="https://github.com/KarinaDeVargas/2024-FSD10-MomMingle/blob/main/Misc/imageForReadMe_file.png" alt="MomMingle 1" width="350">
 <img src="https://github.com/KarinaDeVargas/2024-FSD10-MomMingle/blob/main/Misc/imageForReadMe_file02.png" alt="MomMingle 2" width="350">
-<img src="https://github.com/KarinaDeVargas/2024-FSD10-MomMingle/blob/main/Misc/imageForReadMe_file03.png" alt="MomMingle 2" width="350">
 <img src="https://github.com/KarinaDeVargas/2024-FSD10-MomMingle/blob/main/Misc/imageForReadMe_file04.png" alt="MomMingle 2" width="350">
 <img src="https://github.com/KarinaDeVargas/2024-FSD10-MomMingle/blob/main/Misc/imageForReadMe_file05.png" alt="MomMingle 2" width="350">
+<img src="https://github.com/KarinaDeVargas/2024-FSD10-MomMingle/blob/main/Misc/imageForReadMe_file03.png" alt="MomMingle 2" width="350">
