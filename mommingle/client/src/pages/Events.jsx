@@ -76,11 +76,11 @@ const SearchEvent = () => {
           className="border rounded px-4 py-2 ml-4"
         >
           <option value="">All Categories</option>
-          <option value="Playdate">Social</option>
-          <option value="Social">Culture</option>
+          <option value="Social">Social</option>
+          <option value="Culture">Culture</option>
           <option value="Fitness">Fitness</option>
           <option value="Parenting">Parenting</option>
-          <option value="Cooking">Playdate</option>
+          <option value="Playdate">Playdate</option>
         </select>
         <input
           type="date"
