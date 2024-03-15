@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import DeleteIcon from "../images/delete.png";
 import EditIcon from "../images/edit.png";
+import Swal from "sweetalert2";
 import {
   FaCalendarAlt,
   FaMapMarkerAlt,
@@ -99,13 +100,20 @@ const SingleEvent = () => {
         event_id: postId,
       });
       console.log("User joined event successfully:");
-      alert("You have successfully requested joining the event!");
-
+      Swal.fire({
+        icon: "success",
+        title: "Success!",
+        text: "You have successfully requested joining the event!",
+      });
       // Update local state immediately
       setAttendees([...attendees, { user_id, username: currentUser.username }]);
     } catch (error) {
       console.error("Error joining event:", error);
-      alert("An error occurred while requesting. Please try again later.");
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "An error occurred while requesting. Please try again later.",
+      });
     }
   };
 
