@@ -4,7 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
-import moment from "moment";
+import "react-datepicker/dist/react-datepicker.css";
 
 const CreateEvent = () => {
   const state = useLocation().state;
@@ -12,7 +12,7 @@ const CreateEvent = () => {
   const [title, setTitle] = useState(state?.title || "");
   const [file, setFile] = useState(null);
   const [category, setCategory] = useState(state?.category || "");
-  const [eventDate, setEventDate] = useState(state?.event_date || "");
+  const [eventDate, setEventDate] = useState(state?.event_date || null);
   const [location, setLocation] = useState(state?.location || "");
   const [activities, setActivities] = useState(state?.activities || "");
   const [ageRange, setAgeRange] = useState(state?.age_range || "");
@@ -75,7 +75,10 @@ const CreateEvent = () => {
             activities,
             age_range: ageRange,
             img: file ? imgUrl : "",
-            created_at: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+            created_at: new Date(Date.now())
+              .toISOString()
+              .slice(0, 19)
+              .replace("T", " "),
           });
       navigate("/events");
     } catch (err) {
@@ -109,6 +112,7 @@ const CreateEvent = () => {
 
         <h1>Event Date</h1>
         <DatePicker
+          className="event-input"
           selected={eventDate}
           onChange={(date) => setEventDate(date)}
           placeholderText="Select Event Date"

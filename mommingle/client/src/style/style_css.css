@@ -244,6 +244,11 @@
   color: red;
 }
 
+#custom-datepicker .react-datepicker-wrapper,
+#custom-datepicker .react-datepicker__input-container input {
+  width: 100px; /* Adjust the width as needed */
+}
+
 /* ********ADMIN PAGE********** */
 .usersPanel {
   padding: 20px;
